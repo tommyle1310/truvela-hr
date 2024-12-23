@@ -1,101 +1,146 @@
-import Image from "next/image";
+'use client'
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { faBell, faCalendar, faCalendarCheck, faChevronDown, faListCheck, faSearch, faSortDown, faSortUp, faSuitcase, faUsersLine } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator";
+import { Calendar } from "@/components/ui/calendar";
+import React from "react";
+import { DashboardAtendanceReviewTable } from "@/components/Dashboard/AttendanceReview";
+
+
+export const dataDashboardCards = [
+  {
+    id: 1,
+    title: 'Total Employee',
+    mainMetric: 560,
+    isPositiveTrend: true,
+    trendMetric: '12%',
+    lastUpdated: 'December 20, 2024',
+    icon: faUsersLine
+  },
+  {
+    id: 2,
+    title: 'Total Applicant',
+    mainMetric: 1020,
+    isPositiveTrend: true,
+    trendMetric: '21%',
+    lastUpdated: 'December 16, 2024',
+    icon: faSuitcase
+  },
+  {
+    id: 3,
+    title: 'Today Attendance',
+    mainMetric: 223,
+    isPositiveTrend: false,
+    trendMetric: '38%',
+    lastUpdated: 'December 23, 2024',
+    icon: faCalendarCheck
+  },
+  {
+    id: 4,
+    title: 'Total Projects',
+    mainMetric: 884,
+    isPositiveTrend: true,
+    trendMetric: '12%',
+    lastUpdated: 'December 22, 2024',
+    icon: faListCheck
+  },
+]
+
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [date, setDate] = React.useState<Date | undefined>(new Date())
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="flex flex-col gap-8 w-full">
+      <div className="flex items-center gap-4 justify-between ">
+        <div className="flex flex-col text-lg">
+          <strong>Hello, <span>{'Tommy Le'}</span>🙌</strong>
+          <p className="text-gray-400 font-thin">Good morning</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <div className="flex items-center gap-4">
+          <Label className="flex items-center gap-2 border cursor-pointer rounded-md p-2">
+            <FontAwesomeIcon icon={faSearch} />
+            <input type="text" className="outline-none border-none ring-0" placeholder="Search" />
+          </Label>
+          <div className="w-8 aspect-square flex justify-center items-center bg-gray-100 rounded-md">
+            <FontAwesomeIcon icon={faBell} />
+          </div>
+          <Popover>
+            <PopoverTrigger>
+              <div className="rounded-md border p-2 flex items-center gap-2">
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col flex-grow">
+                  <strong>{'Tommy Le'}</strong>
+                  <p>{'HR staff'}</p>
+                </div>
+                <FontAwesomeIcon icon={faChevronDown} />
+              </div>
+            </PopoverTrigger>
+            <PopoverContent>Place content for the popover here.</PopoverContent>
+          </Popover>
+        </div>
+      </div>
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-8 grid grid-cols-2 gap-4 w-full ">
+
+          {dataDashboardCards.map(item => (
+            <Card key={item.id} className="gap-0 p-0 ">
+              <CardHeader className="p-2 flex flex-row items-center gap-1">
+                <div className="w-8 aspect-square flex justify-center items-center bg-violet-100 rounded-md">
+                  <FontAwesomeIcon icon={item.icon} className="text-xs text-violet-600" />
+                </div>
+                <CardTitle>{item.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-2 flex items-center justify-between">
+                <strong className="text-lg font-bold">{item.mainMetric}</strong>
+                <div className={`px-2 py-1 ${item.isPositiveTrend ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} flex items-center gap-1 rounded-sm`}>
+                  <FontAwesomeIcon icon={item.isPositiveTrend ? faSortUp : faSortDown} className={`text-xs ${item.isPositiveTrend ? 'mt-1' : 'mb-1'}`} />
+                  <strong>{item.trendMetric}</strong>
+                </div>
+              </CardContent>
+              <Separator />
+              <CardFooter className="my-0 p-2">
+                <p className="font-thin text-gray-400">Update: <span>{item.lastUpdated}</span></p>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+        <div className="col-span-4 w-full flex flex-col gap-4">
+          <div className="flex items-center justify-between ">
+            <strong>My Schedule</strong>
+            <div className="w-8 aspect-square flex justify-center items-center bg-violet-100 text-violet-500 rounded-md">
+              <FontAwesomeIcon icon={faCalendar} />
+            </div>
+          </div>
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            className="rounded-md shadow-none mx-auto"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </div>
+      <DashboardAtendanceReviewTable />
     </div>
   );
 }

@@ -20,7 +20,10 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { tabs_add_edit_employee } from '@/data/componentData'
+import { input_form_personal_information_add_employee, tabs_add_edit_employee } from '@/data/componentData'
+import { DatePicker } from '@/components/DatePicker'
+import { Input } from '@/components/ui/input'
+import InputControl from '@/components/InputControl'
 
 
 const attendanceReviewData: { id: number, email: string, name: string, isFulltime: boolean, activePoint: number, workLocation: string, avatar: string, clockIn: string, checkIn: string, designation: string, status: 'LATE' | 'EARLY' | 'ON_TIME' }[] = [
@@ -143,7 +146,9 @@ export const EmployeeContentRender = ({
                 switchContentRender('ALL_EMPLOYEE');
                 setCurrentTab(tabs_add_edit_employee[0].title);  // Reset to the first tab
             };
-            console.log(tabs_add_edit_employee)
+
+            const [selectedDate, setSelectedDate] = useState<number>(Math.floor(new Date().getTime() / 1000));
+
 
             return (
                 <div className="border p-4 rounded-lg flex flex-col gap-4 shadow-md">
@@ -160,9 +165,39 @@ export const EmployeeContentRender = ({
                             </Button>
                         ))}
                     </div>
-                    <div className="">{currentTab}</div>
+                    <div className="grid grid-cols-12 gap-4">
+                        {input_form_personal_information_add_employee.map(item => {
+                            if (item.label === 'Address') {
+                                return (
+                                    <div className='col-span-8'>
+                                        <InputControl
+                                            placeholder={item.placeholder}
+                                            label={item.label}
+
+                                            value={item.value}
+                                        />
+                                    </div>
+                                )
+                            }
+                            return (
+                                <div className="col-span-4">
+                                    <InputControl
+                                        placeholder={item.placeholder}
+                                        label={item.label}
+                                        value={item.value}
+                                        isImage={item.isImage}
+                                        dropdownValue={item.dropdownValue}
+                                        multiSelectValue={item.multiSelectValue}
+                                        imageGallery={item.imageGallery}
+                                        imageSize={0.3}
+                                        datePicker={item.datePicker && { selectedDate, setSelectedDate, placeholder: 'Date of Birth' }}
+                                    />
+                                </div>
+                            )
+                        })}
+
+                    </div>
                     <div className='flex justify-end items-center gap-4'>
-                        {/* Ensure cancel resets to 'ALL_EMPLOYEE' */}
                         <Button onClick={handleCancel} variant={'outline'}>Cancel</Button>
                         <Button>Next</Button>
                     </div>

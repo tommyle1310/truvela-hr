@@ -121,3 +121,11 @@ body {
 .p-default {
   @apply px-2 py-1
 }
+
+.center {
+  @apply flex items-center justify-center
+}
+
+.hover {
+  @apply hover:duration-300
+}

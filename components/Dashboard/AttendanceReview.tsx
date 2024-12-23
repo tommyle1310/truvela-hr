@@ -108,7 +108,7 @@ const attendanceReviewData: { id: number, name: string, avatar: string, clockIn:
 export function DashboardAtendanceReviewTable() {
     return (
         <div className="flex flex-col">
-            <h5 className="text-lg font-bold p-2">Attendance Review</h5>
+            <h5 className="text-lg font-bold p-2">Attendance Overview</h5>
             <Table>
                 <TableCaption>A list of recent staff attendance.</TableCaption>
                 <TableHeader>

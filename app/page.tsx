@@ -21,6 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/ui/calendar";
 import React from "react";
 import { DashboardAtendanceReviewTable } from "@/components/Dashboard/AttendanceReview";
+import SearchInput from "@/components/SearchInput";
 
 
 export const dataDashboardCards = [
@@ -75,10 +76,7 @@ export default function Home() {
           <p className="text-gray-400 font-thin">Good morning</p>
         </div>
         <div className="flex items-center gap-4">
-          <Label className="flex items-center gap-2 border cursor-pointer rounded-md p-2">
-            <FontAwesomeIcon icon={faSearch} />
-            <input type="text" className="outline-none border-none ring-0" placeholder="Search" />
-          </Label>
+          <SearchInput />
           <div className="w-8 aspect-square flex justify-center items-center bg-gray-100 rounded-md">
             <FontAwesomeIcon icon={faBell} />
           </div>

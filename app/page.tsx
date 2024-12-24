@@ -66,13 +66,13 @@ export default function Home() {
 
           {dataDashboardCards.map(item => (
             <Card key={item.id} className="gap-0 p-0 ">
-              <CardHeader className="p-2 flex flex-row items-center gap-1">
+              <CardHeader className="p-4 flex flex-row items-center gap-1">
                 <div className="w-8 aspect-square flex justify-center items-center bg-violet-100 rounded-md">
                   <FontAwesomeIcon icon={item.icon} className="text-xs text-violet-600" />
                 </div>
                 <CardTitle>{item.title}</CardTitle>
               </CardHeader>
-              <CardContent className="p-2 flex items-center justify-between">
+              <CardContent className="px-4 flex items-center justify-between">
                 <strong className="text-lg font-bold">{item.mainMetric}</strong>
                 <div className={`px-2 py-1 ${item.isPositiveTrend ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} flex items-center gap-1 rounded-sm`}>
                   <FontAwesomeIcon icon={item.isPositiveTrend ? faSortUp : faSortDown} className={`text-xs ${item.isPositiveTrend ? 'mt-1' : 'mb-1'}`} />
@@ -80,7 +80,7 @@ export default function Home() {
                 </div>
               </CardContent>
               <Separator />
-              <CardFooter className="my-0 flex-grow p-2 ">
+              <CardFooter className="my-0 flex-grow p-4 ">
                 <p className="font-thin text-gray-400">Update: <span>{item.lastUpdated}</span></p>
               </CardFooter>
             </Card>

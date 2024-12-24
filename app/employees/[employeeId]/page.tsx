@@ -19,7 +19,7 @@ import InputControl from '@/components/InputControl'
 import { tabs_add_edit_employee } from '@/data/screens/employees'
 import { employee_details_account_access_data, employee_details_documents_data, employee_details_personal_information_data, employee_details_professional_information_data } from '@/data/screens/employeeDetails'
 
-export const TsxForTopLeftSectionApp = () => {
+export const Employee_details_topSection_left_breadcrumb = () => {
     const { employeeId } = useParams()
 
     return (

@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <div className="flex relative mx-auto max-w-screen-xl  h-screen">
           <Sidebar />
-          <div className="absolute left-48 p-6 w-[1024px] h-screen flex flex-col gap-8">
+          <div className="absolute left-52 p-6 w-[1024px] h-screen flex flex-col gap-8">
             <TopSectionApp />
             {children}
           </div>

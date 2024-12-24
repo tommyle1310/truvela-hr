@@ -11,12 +11,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import SearchInput from "@/components/SearchInput";
 import { usePathname } from "next/navigation";
 import { sidebarItems } from '@/data/componentData';
-import { TsxForTopLeftSectionApp } from '@/app/employees/[employeeId]/page';
+import { Employee_details_topSection_left_breadcrumb } from '@/app/employees/[employeeId]/page';
+import { Department_members_topSection_left_breadcrumb } from '@/app/departments/[departmentId]/page';
+
 
 const RenderTopLeft = ({ pathname }: { pathname: string }) => {
     // Check for paths that start with '/employees/' (i.e., dynamic /employees/... paths)
     if (pathname.startsWith('/employees/')) {
-        return <TsxForTopLeftSectionApp />; // For dynamic employee paths
+        return <Employee_details_topSection_left_breadcrumb />; // For dynamic employee paths
+    }
+    if (pathname.startsWith('/departments/')) {
+        return <Department_members_topSection_left_breadcrumb />
     }
 
     // Handle the exact '/employees' path
@@ -33,6 +38,13 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
                 <div className="flex flex-col">
                     <h1 className="font-bold text-lg">All Employees</h1>
                     <p className="font-thin text-gray-400">All Employees Information</p>
+                </div>
+            );
+        case '/departments':
+            return (
+                <div className="flex flex-col">
+                    <h1 className="font-bold text-lg">All Departments</h1>
+                    <p className="font-thin text-gray-400">All Departments Information</p>
                 </div>
             );
         default:

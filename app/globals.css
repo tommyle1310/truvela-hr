@@ -127,5 +127,5 @@ body {
 }
 
 .hover {
-  @apply hover:duration-300
+  @apply hover:duration-300 cursor-pointer
 }

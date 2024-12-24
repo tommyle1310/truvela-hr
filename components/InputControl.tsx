@@ -10,7 +10,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Checkbox } from './ui/checkbox';
 import { cn } from '@/lib/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faCircleDown, faEye, faPlus, faPlusCircle, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { DatePicker } from './DatePicker';
 
 interface IInputControl {
@@ -24,11 +24,14 @@ interface IInputControl {
     popOverExtraBtn?: { label: string, onClick: () => void }
     defaultValue?: string | number
     isSkipped?: boolean,
+    uploadFile?: { supportedFormats?: string },
+    uploadedFileValue?: { filename: string[] },
     datePicker?: {
         placeholder?: string,
         selectedDate: number
         setSelectedDate: Dispatch<SetStateAction<number>>
     },
+    readOnly?: boolean,
     imageSize?: number,
     isImageGallery?: boolean,
     imageGallery?: string[],
@@ -43,7 +46,9 @@ const InputControl = ({
     placeholder,
     disabled,
     isImage,
+    uploadedFileValue,
     label,
+    readOnly,
     isHidden,
     imageSize,
     isSkipped,
@@ -52,6 +57,7 @@ const InputControl = ({
     value,
     defaultValue,
     dropdownValue,
+    uploadFile,
     multiSelectValue,
     imageGallery,
     isImageGallery,
@@ -144,6 +150,30 @@ const InputControl = ({
     };
 
     const renderInputField = () => {
+        if (readOnly && value) {
+            return (
+                <div className='text-gray-500'>{value}</div>
+            )
+        }
+        else if (readOnly && uploadedFileValue) {
+            return (
+                <div className="flex flex-col gap-2">
+                    {uploadedFileValue.filename.map(item => (
+                        <div className='p-4 center border rounded-lg flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-100 hover'>
+                            <p>{item}</p>
+                            <div className="flex items-center gap-2">
+                                <div className="p-2 center bg-gray-100 rounded-sm hover hover:bg-gray-600 hover:text-gray-300 text-gray-500">
+                                    <FontAwesomeIcon icon={faEye} />
+                                </div>
+                                <div className="p-2 center bg-gray-100 rounded-sm hover hover:bg-gray-600 hover:text-gray-300 text-gray-500">
+                                    <FontAwesomeIcon icon={faCircleDown} />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )
+        }
         if (isImage) {
             if (value) {
                 return (
@@ -187,7 +217,7 @@ const InputControl = ({
                         {selectedValue
                             ? typeof dropdownValue?.[0] === "string"
                                 ? selectedValue
-                                : dropdownValue?.find((item: any) => item.label === selectedValue)?.label
+                                : dropdownValue?.find((item: any) => item.value === selectedValue)?.label
                             : `Select ${label}...`}
                         <ChevronsUpDown className="opacity-50" />
                     </Button>
@@ -227,10 +257,27 @@ const InputControl = ({
             <>
                 {datePicker && (
                     <DatePicker
-                        placeholder="Date of Birth"
+                        placeholder={placeholder}
                         selectedDate={datePicker.selectedDate}
                         setPropSelectedDate={datePicker?.setSelectedDate}
                     />
+                )}
+            </>
+        );
+    };
+
+    const renderFileUploader = () => {
+        return (
+            <>
+                {uploadFile && (
+                    <Label htmlFor={label} className='p-4 center border rounded-lg flex flex-col cursor-pointer hover:bg-gray-100 hover'>
+                        <div className="center p-2 bg-violet-600 text-white rounded-md">
+                            <FontAwesomeIcon icon={faUpload} />
+                        </div>
+                        <strong className='text-lg my-2'>Drag & Drop or <span className='text-violet-600'>choose file </span>to upload</strong>
+                        <p className='font-thin text-gray-400'>Supported format: {uploadFile.supportedFormats}</p>
+                        <input accept={uploadFile.supportedFormats} type='file' id={label} className='hidden' />
+                    </Label>
                 )}
             </>
         );
@@ -242,6 +289,8 @@ const InputControl = ({
         content = renderDropdown();
     } else if (multiSelectValue) {
         content = renderMultiSelectList();
+    } else if (uploadFile) {
+        content = renderFileUploader();
     } else if (datePicker) {
         content = renderDatePicker();
     } else if (isImageGallery) {

@@ -1,83 +1,72 @@
-import { Type_input_form_personal_information_add_employee } from "@/types/componentDataType";
-import { faIdCard, faUnlock, faUser, faUserTie, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { countries } from "./countries";
+import { faCalendarCheck, faCircleDollarToSlot, faDrawPolygon, faListCheck, faRectangleList, faShapes, faSuitcase, faUserCheck, faUsersBetweenLines, } from "@fortawesome/free-solid-svg-icons";
 
-export const tabs_add_edit_employee: { id: number, icon: IconDefinition, title: string }[] = [
+
+
+export const sidebarItems = [
     {
-        id: 1,
-        icon: faUser,
-        title: 'Personal Information',
+        id: '1',
+        title: 'Dashboard',
+        onClick: () => { },
+        link: '/',
+        icon: faShapes
     },
     {
-        id: 2,
-        icon: faUserTie,
-        title: 'Professional Information',
+        id: '2',
+        title: 'All Employees',
+        onClick: () => { },
+        link: '/employees',
+        icon: faUsersBetweenLines
     },
     {
-        id: 3,
-        icon: faIdCard,
-        title: 'Documents',
+        id: '3',
+        title: 'All Departments',
+        onClick: () => { },
+        link: '/departments',
+        icon: faDrawPolygon
     },
     {
-        id: 4,
-        icon: faUnlock,
-        title: 'Account Access',
+        id: '4',
+        title: 'Attendance',
+        onClick: () => { },
+        link: '/attendance',
+        icon: faCalendarCheck
+    },
+    {
+        id: '5',
+        title: 'Staff Schedule',
+        onClick: () => { },
+        link: '/staff-schedule',
+        icon: faListCheck
+    },
+    {
+        id: '6',
+        title: 'Payroll',
+        onClick: () => { },
+        link: '/payroll',
+        icon: faCircleDollarToSlot
+    },
+    {
+        id: '7',
+        title: 'Candidates',
+        onClick: () => { },
+        link: '/candidates',
+        icon: faUserCheck
+    },
+    {
+        id: '8',
+        title: 'Jobs',
+        onClick: () => { },
+        link: '/jobs',
+        icon: faSuitcase
+    },
+    {
+        id: '9',
+        title: 'Leaves',
+        onClick: () => { },
+        link: '/leaves',
+        icon: faRectangleList
     },
 ]
 
-export const input_form_personal_information_add_employee: Type_input_form_personal_information_add_employee[] = [
-    {
-        id: 1,
-        label: 'First Name',
-        placeholder: 'First Name'
-    },
-    {
-        id: 2,
-        label: 'Last Name',
-        placeholder: 'Last Name'
-    },
-    {
-        id: 3,
-        label: 'Phone Number',
-        placeholder: 'Phone Number'
-    },
-    {
-        id: 4,
-        label: 'Email Address',
-        placeholder: 'Email Address'
-    },
-    {
-        id: 5,
-        label: 'Date of Birth',
-        datePicker: { placeholder: 'Date of Birth' },
-        placeholder: 'Date of Birth'
-    },
-    {
-        id: 6,
-        label: 'Gender',
-        dropdownValue: [
-            { label: 'Male', value: 'MALE' },
-            { label: 'Female', value: 'FEMALE' },
-            { label: 'Other', value: 'OTHER' },
-        ],
-        placeholder: 'Gender'
-    },
-    {
-        id: 7,
-        label: 'Nationality',
-        dropdownValue: countries,
-        placeholder: 'Nationality'
-    },
-    {
-        id: 8,
-        label: 'Address',
-        placeholder: 'Address'
-    },
-    {
-        id: 9,
-        label: 'Avatar',
-        placeholder: 'Avatar',
-        isImage: true,
-        // value: 'https://github.com/shadcn.png'
-    },
-]
+
+

@@ -1,18 +1,9 @@
 'use client'
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { faBell, faCalendar, faCalendarCheck, faChevronDown, faListCheck, faSearch, faSortDown, faSortUp, faSuitcase, faUsersLine } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faCalendarCheck, faListCheck, faSortDown, faSortUp, faSuitcase, faUsersLine } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -21,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/ui/calendar";
 import React from "react";
 import { DashboardAtendanceReviewTable } from "@/components/Dashboard/AttendanceReview";
-import SearchInput from "@/components/SearchInput";
 
 
 export const dataDashboardCards = [
@@ -70,34 +60,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-8 w-full">
-      <div className="flex items-center gap-4 justify-between ">
-        <div className="flex flex-col text-lg">
-          <strong>Hello, <span>{'Tommy Le'}</span>🙌</strong>
-          <p className="text-gray-400 font-thin">Good morning</p>
-        </div>
-        <div className="flex items-center gap-4">
-          <SearchInput />
-          <div className="w-8 aspect-square flex justify-center items-center bg-gray-100 rounded-md">
-            <FontAwesomeIcon icon={faBell} />
-          </div>
-          <Popover>
-            <PopoverTrigger>
-              <div className="rounded-md border p-2 flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col flex-grow">
-                  <strong>{'Tommy Le'}</strong>
-                  <p>{'HR staff'}</p>
-                </div>
-                <FontAwesomeIcon icon={faChevronDown} />
-              </div>
-            </PopoverTrigger>
-            <PopoverContent>Place content for the popover here.</PopoverContent>
-          </Popover>
-        </div>
-      </div>
+
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-8 grid grid-cols-2 gap-4 w-full ">
 
@@ -117,7 +80,7 @@ export default function Home() {
                 </div>
               </CardContent>
               <Separator />
-              <CardFooter className="my-0 p-2">
+              <CardFooter className="my-0 flex-grow p-2 ">
                 <p className="font-thin text-gray-400">Update: <span>{item.lastUpdated}</span></p>
               </CardFooter>
             </Card>

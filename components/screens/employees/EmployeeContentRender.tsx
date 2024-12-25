@@ -22,9 +22,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { tabs_add_edit_employee } from '@/data/screens/employees'
 import { attendanceReviewData } from '@/data/screens/employees'
 import { Type_states_add_edit_employee, TypeEmployeeContent } from '@/types/screens/employees/componentDataType'
-import TabAddEditEmployeeContentRender from './TabAddEditEmployeeContentRender'
+import TabAddEditEmployeeContentRender from '../../Tabs/TabContentHorizontalRender'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import TabHorizontalContentRender from '../../Tabs/TabContentHorizontalRender'
 
 
 export const EmployeeContentRender = ({
@@ -135,7 +136,7 @@ export const EmployeeContentRender = ({
 
             const [selectedDate, setSelectedDate] = useState<number>(Math.floor(new Date().getTime() / 1000));
 
-            return <TabAddEditEmployeeContentRender handleNextStep={handleNextStep} setCurrentProgress={setCurrentProgress} handleCancel={handleCancel} currentProgress={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            return <TabHorizontalContentRender listData={tabs_add_edit_employee} handleNextStep={handleNextStep} setCurrentProgress={setCurrentProgress} handleCancel={handleCancel} currentProgress={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
     }
 };

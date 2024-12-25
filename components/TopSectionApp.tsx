@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { faBell, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Popover,
@@ -10,10 +10,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import SearchInput from "@/components/SearchInput";
 import { usePathname } from "next/navigation";
-import { sidebarItems } from '@/data/componentData';
 import { Employee_details_topSection_left_breadcrumb } from '@/app/employees/[employeeId]/page';
 import { Department_members_topSection_left_breadcrumb } from '@/app/departments/[departmentId]/page';
-import IconWithBg from './iconWithBg';
+import IconWithBg from './IconWithBg';
+import { RenderTopLeft_payroll } from '@/app/payroll/page';
 
 
 
@@ -44,7 +44,7 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
         case '/attendance':
             return (<RenderTopLeft_ByCase title={'attendance'} subtitle='attendance report' />);
         case '/payroll':
-            return (<RenderTopLeft_ByCase title={'payroll'} subtitle='employee payroll' />);
+            return (<RenderTopLeft_payroll />);
         default:
             return <div></div>;
     }

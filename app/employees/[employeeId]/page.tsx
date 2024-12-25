@@ -10,7 +10,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faSuitcase, faUserTie } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faSuitcase, faUser, faUserTie } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Type_states_add_edit_employee } from '@/types/screens/employees/componentDataType'
@@ -18,6 +18,8 @@ import TabHeaders from '@/components/TabHeaders'
 import InputControl from '@/components/InputControl'
 import { tabs_add_edit_employee } from '@/data/screens/employees'
 import { employee_details_account_access_data, employee_details_documents_data, employee_details_personal_information_data, employee_details_professional_information_data } from '@/data/screens/employeeDetails'
+import { vertical_util_tab_employee } from '@/data/componentData'
+import VerticalUtilTab from '@/components/Tabs/VerticalUtilTab'
 
 export const Employee_details_topSection_left_breadcrumb = () => {
     const { employeeId } = useParams()
@@ -82,21 +84,8 @@ const page = () => {
     const { employeeId } = useParams()
     const [currentProgress, setCurrentProgress] = useState<string>(tabs_add_edit_employee[0].title);
     const [employeeInputs, setEmployeeInputs] = useState<Type_states_add_edit_employee>()
-
-    const handleNextStep = () => {
-        switch (currentProgress) {
-            case tabs_add_edit_employee[0].title:
-                return setCurrentProgress(tabs_add_edit_employee[1].title)
-            case tabs_add_edit_employee[1].title:
-                return setCurrentProgress(tabs_add_edit_employee[2].title)
-            case tabs_add_edit_employee[2].title:
-                return setCurrentProgress(tabs_add_edit_employee[3].title)
-            case tabs_add_edit_employee[3].title:
-                return setCurrentProgress(tabs_add_edit_employee[3].title)
-        }
-    }
-
     const [selectedDate, setSelectedDate] = useState<number>(Math.floor(new Date().getTime() / 1000));
+    const [selectedUtilTab, setSelectedUtilTab] = useState<string>(vertical_util_tab_employee[0].title)
     return (
         <div className='p-4 border rounded-lg shadow flex flex-col gap-4'>
             <div className="flex justify-between">
@@ -112,7 +101,9 @@ const page = () => {
             </div>
             <Separator />
             <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-3"></div>
+                <div className="col-span-3">
+                    <VerticalUtilTab listData={vertical_util_tab_employee} selectedUtilTab={selectedUtilTab} setSelectedUtilTab={setSelectedUtilTab} />
+                </div>
                 <div className="col-span-9 flex flex-col gap-8">
                     <div className="flex items-center">
                         {tabs_add_edit_employee.map(item => (

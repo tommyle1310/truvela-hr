@@ -3,8 +3,9 @@ import { input_form_personal_information_add_employee, input_form_professional_i
 import InputControl from '@/components/InputControl'
 import { Button } from '@/components/ui/button';
 import TabHeaders from '@/components/TabHeaders';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-const TabAddEditProgressContentRender = ({ selectedDate, setSelectedDate, type }: { type: string, selectedDate?: number, setSelectedDate?: React.Dispatch<React.SetStateAction<number>> }) => {
+const TabProgressContentRender = ({ selectedDate, setSelectedDate, type }: { type: string, selectedDate?: number, setSelectedDate?: React.Dispatch<React.SetStateAction<number>> }) => {
     switch (type) {
         case tabs_add_edit_employee[0].title:
             return (
@@ -85,19 +86,18 @@ const TabAddEditProgressContentRender = ({ selectedDate, setSelectedDate, type }
                     <InputControl label='Truvela ID' placeholder='Truvela ID' />
                 </div>
             )
-
     }
 }
 
-const TabAddEditEmployeeContentRender = ({ currentProgress, setCurrentProgress, handleCancel, selectedDate, setSelectedDate, handleNextStep }: { handleNextStep: () => void, currentProgress: string, handleCancel: () => void, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>, selectedDate: number, setSelectedDate: React.Dispatch<React.SetStateAction<number>> }) => {
+const TabHorizontalContentRender = ({ listData, currentProgress, setCurrentProgress, handleCancel, selectedDate, setSelectedDate, handleNextStep }: { listData: { id: number, icon: IconDefinition, title: string }[], handleNextStep?: () => void, currentProgress: string, handleCancel?: () => void, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>, selectedDate?: number, setSelectedDate?: React.Dispatch<React.SetStateAction<number>> }) => {
     return (
         <div className="border p-4 rounded-lg flex flex-col gap-4 shadow-md">
             <div className="flex items-center">
-                {tabs_add_edit_employee.map(item => (
+                {listData.map(item => (
                     <TabHeaders currentProgress={currentProgress} icon={item.icon} title={item.title} id={item.id} setCurrentProgress={setCurrentProgress} key={item.id} />
                 ))}
             </div>
-            <TabAddEditProgressContentRender type={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            <TabProgressContentRender type={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <div className='flex justify-end items-center gap-4'>
                 <Button onClick={handleCancel} variant={'outline'}>Cancel</Button>
                 <Button onClick={handleNextStep}>{currentProgress === tabs_add_edit_employee[tabs_add_edit_employee.length - 1].title ? 'Confirm' : 'Next'}</Button>
@@ -106,4 +106,4 @@ const TabAddEditEmployeeContentRender = ({ currentProgress, setCurrentProgress, 
     );
 }
 
-export default TabAddEditEmployeeContentRender
+export default TabHorizontalContentRender

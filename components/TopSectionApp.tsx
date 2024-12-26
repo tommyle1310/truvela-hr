@@ -44,6 +44,8 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
             return (<RenderTopLeft_ByCase title={'attendance'} subtitle='attendance report' />);
         case '/payroll':
             return (<RenderTopLeft_ByCase title={'Payroll'} subtitle='payroll  management' />);
+        case '/candidates':
+            return (<RenderTopLeft_ByCase title={'Candidates'} subtitle='show all candidates' />);
 
         default:
             return <div></div>;

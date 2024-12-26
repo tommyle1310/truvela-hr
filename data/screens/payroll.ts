@@ -581,8 +581,6 @@ export const payrollTableTaxDeductionsData: {
             effectivePeriod: 1712112000,
         }
     ];
-
-
 export const payrollTableEmployeePayrollLogsData: {
     id: number,
     employeeName: string,

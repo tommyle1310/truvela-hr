@@ -95,22 +95,22 @@ export const vertical_util_tab_employee: Type_vertical_util_tab[] = [
 export const vertical_util_tab_payroll: Type_vertical_util_tab[] = [
     {
         id: 1,
-        title: 'Salary Definition',
+        title: 'Employee Payroll',
         icon: faUser,
     },
     {
         id: 2,
-        title: 'Tax & Deduction',
+        title: 'Salary Definition',
         icon: faCalendarCheck,
     },
     {
         id: 3,
-        title: 'Employee Payslips History',
+        title: 'Employee Payroll Logs',
         icon: faTarp,
     },
     {
         id: 4,
-        title: 'Employee Payroll History',
+        title: 'Tax & Deductions',
         icon: faRectangleList,
     },
 ]

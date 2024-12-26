@@ -13,7 +13,6 @@ import { usePathname } from "next/navigation";
 import { Employee_details_topSection_left_breadcrumb } from '@/app/employees/[employeeId]/page';
 import { Department_members_topSection_left_breadcrumb } from '@/app/departments/[departmentId]/page';
 import IconWithBg from './IconWithBg';
-import { RenderTopLeft_payroll } from '@/app/payroll/page';
 
 
 
@@ -44,7 +43,8 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
         case '/attendance':
             return (<RenderTopLeft_ByCase title={'attendance'} subtitle='attendance report' />);
         case '/payroll':
-            return (<RenderTopLeft_payroll />);
+            return (<RenderTopLeft_ByCase title={'Payroll'} subtitle='payroll  management' />);
+
         default:
             return <div></div>;
     }

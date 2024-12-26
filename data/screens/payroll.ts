@@ -50,7 +50,7 @@ export const payroll_dashboard_cards: {
 enum Level {
     INTERN = "Intern",
     JUNIOR = "Junior",
-    MID = "Mid-Level",
+    INTERMEDIATE = "Intermediate",
     SENIOR = "Senior",
     LEAD = "Lead",
     ELITE = "Elite",
@@ -60,10 +60,10 @@ enum Level {
 }
 
 
-export const payrollTableData: {
+export const payrollTableThisMonthLogData: {
     id: number,
     departmentName: string,
-    tableEmployeePayroll: {
+    tableSalaryDefinition: {
         id: number,
         name: string,
         level: Level,  // Using the Level enum here
@@ -77,7 +77,7 @@ export const payrollTableData: {
         {
             id: 1,
             departmentName: 'Marketing',
-            tableEmployeePayroll: [
+            tableSalaryDefinition: [
                 {
                     id: 1,
                     name: 'Teo Nguyen',
@@ -91,7 +91,7 @@ export const payrollTableData: {
                 {
                     id: 2,
                     name: 'Alice Zhang',
-                    level: Level.MID,  // Using Level Enum
+                    level: Level.INTERMEDIATE,  // Using Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/4660142?v=4',
                     ctc: 10500,
                     salaryPerMonth: 1000,
@@ -133,7 +133,7 @@ export const payrollTableData: {
         {
             id: 2,
             departmentName: 'Admin',
-            tableEmployeePayroll: [
+            tableSalaryDefinition: [
                 {
                     id: 1,
                     name: 'Emily Davis',
@@ -147,7 +147,7 @@ export const payrollTableData: {
                 {
                     id: 2,
                     name: 'David Wang',
-                    level: Level.MID,  // Using Level Enum
+                    level: Level.INTERMEDIATE,  // Using Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/6699730?v=4',
                     ctc: 9500,
                     salaryPerMonth: 900,
@@ -177,7 +177,7 @@ export const payrollTableData: {
                 {
                     id: 5,
                     name: 'Olivia Harris',
-                    level: Level.MID,  // Using Level Enum
+                    level: Level.INTERMEDIATE,  // Using Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/2994829?v=4',
                     ctc: 10500,
                     salaryPerMonth: 1000,
@@ -189,7 +189,7 @@ export const payrollTableData: {
         {
             id: 3,
             departmentName: 'Frontdesk',
-            tableEmployeePayroll: [
+            tableSalaryDefinition: [
                 {
                     id: 1,
                     name: 'Rachel Green',
@@ -223,7 +223,7 @@ export const payrollTableData: {
                 {
                     id: 4,
                     name: 'Chandler Bing',
-                    level: Level.MID,  // Using Level Enum
+                    level: Level.INTERMEDIATE,  // Using Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/10449062?v=4',
                     ctc: 9100,
                     salaryPerMonth: 850,
@@ -245,7 +245,7 @@ export const payrollTableData: {
         {
             id: 4,
             departmentName: 'Therapist',
-            tableEmployeePayroll: [
+            tableSalaryDefinition: [
                 {
                     id: 1,
                     name: 'Claire Richards',
@@ -259,7 +259,7 @@ export const payrollTableData: {
                 {
                     id: 2,
                     name: 'Oliver Stone',
-                    level: Level.MID,  // Using Level Enum
+                    level: Level.INTERMEDIATE,  // Using Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/2248709?v=4',
                     ctc: 11500,
                     salaryPerMonth: 1100,
@@ -279,7 +279,7 @@ export const payrollTableData: {
                 {
                     id: 4,
                     name: 'James Maxwell',
-                    level: Level.MID,  // Using Level Enum
+                    level: Level.INTERMEDIATE,  // Using Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/8765432?v=4',
                     ctc: 9500,
                     salaryPerMonth: 900,
@@ -299,3 +299,343 @@ export const payrollTableData: {
             ]
         }
     ];
+export const payrollTableSalaryDefinitionData: {
+    id: number,
+    departmentName: string,
+    tableSalaryDefinition: {
+        id: number,
+        job: string,  // Removed 'jobTitle' and using 'job' instead
+        level: Level,  // Using the Level Enum to identify employee's level
+        baseSalary: number,
+        ctc: number,
+        deductions: number,
+        bonus: number,
+        totalCTC: number
+    }[]
+}[] = [
+        {
+            id: 1,
+            departmentName: 'Marketing',
+            tableSalaryDefinition: [
+                {
+                    id: 1,
+                    job: 'Marketing Specialist',
+                    level: Level.SENIOR,
+                    baseSalary: 8000,
+                    ctc: 9200,
+                    deductions: 10,
+                    bonus: 500,
+                    totalCTC: 9700
+                },
+                {
+                    id: 2,
+                    job: 'Marketing Executive',
+                    level: Level.INTERMEDIATE,
+                    baseSalary: 9000,
+                    ctc: 10500,
+                    deductions: 12,
+                    bonus: 600,
+                    totalCTC: 11100
+                },
+                {
+                    id: 3,
+                    job: 'Marketing Manager',
+                    level: Level.SENIOR,
+                    baseSalary: 10500,
+                    ctc: 12000,
+                    deductions: 15,
+                    bonus: 700,
+                    totalCTC: 12700
+                },
+                {
+                    id: 4,
+                    job: 'Marketing Assistant',
+                    level: Level.JUNIOR,
+                    baseSalary: 7500,
+                    ctc: 9500,
+                    deductions: 8,
+                    bonus: 400,
+                    totalCTC: 9900
+                },
+                {
+                    id: 5,
+                    job: 'Marketing Strategist',
+                    level: Level.LEAD,
+                    baseSalary: 10000,
+                    ctc: 11000,
+                    deductions: 14,
+                    bonus: 800,
+                    totalCTC: 11800
+                }
+            ]
+        },
+        {
+            id: 2,
+            departmentName: 'Admin',
+            tableSalaryDefinition: [
+                {
+                    id: 1,
+                    job: 'Admin Officer',
+                    level: Level.JUNIOR,
+                    baseSalary: 7500,
+                    ctc: 8500,
+                    deductions: 10,
+                    bonus: 400,
+                    totalCTC: 8900
+                },
+                {
+                    id: 2,
+                    job: 'Admin Manager',
+                    level: Level.INTERMEDIATE,
+                    baseSalary: 9000,
+                    ctc: 9500,
+                    deductions: 13,
+                    bonus: 500,
+                    totalCTC: 10000
+                },
+                {
+                    id: 3,
+                    job: 'Admin Executive',
+                    level: Level.SENIOR,
+                    baseSalary: 9500,
+                    ctc: 10200,
+                    deductions: 9,
+                    bonus: 600,
+                    totalCTC: 10800
+                },
+                {
+                    id: 4,
+                    job: 'Office Administrator',
+                    level: Level.JUNIOR,
+                    baseSalary: 8500,
+                    ctc: 9700,
+                    deductions: 11,
+                    bonus: 400,
+                    totalCTC: 10100
+                },
+                {
+                    id: 5,
+                    job: 'Admin Specialist',
+                    level: Level.INTERMEDIATE,
+                    baseSalary: 9500,
+                    ctc: 10500,
+                    deductions: 8,
+                    bonus: 500,
+                    totalCTC: 11000
+                }
+            ]
+        },
+        {
+            id: 3,
+            departmentName: 'Frontdesk',
+            tableSalaryDefinition: [
+                {
+                    id: 1,
+                    job: 'Frontdesk',
+                    level: Level.INTERN,
+                    baseSalary: 6000,
+                    ctc: 7600,
+                    deductions: 6,
+                    bonus: 200,
+                    totalCTC: 7800
+                },
+                {
+                    id: 2,
+                    job: 'Frontdesk',
+                    level: Level.JUNIOR,
+                    baseSalary: 7200,
+                    ctc: 8400,
+                    deductions: 7,
+                    bonus: 300,
+                    totalCTC: 8700
+                },
+                {
+                    id: 3,
+                    job: 'Frontdesk Manager',
+                    level: Level.SENIOR,
+                    baseSalary: 8000,
+                    ctc: 8800,
+                    deductions: 9,
+                    bonus: 500,
+                    totalCTC: 9300
+                },
+                {
+                    id: 4,
+                    job: 'Frontdesk Assistant',
+                    level: Level.INTERMEDIATE,
+                    baseSalary: 8200,
+                    ctc: 9100,
+                    deductions: 5,
+                    bonus: 400,
+                    totalCTC: 9500
+                },
+                {
+                    id: 5,
+                    job: 'Junior Frontdesk Associate',
+                    level: Level.JUNIOR,
+                    baseSalary: 7600,
+                    ctc: 9200,
+                    deductions: 8,
+                    bonus: 300,
+                    totalCTC: 9500
+                }
+            ]
+        },
+        {
+            id: 4,
+            departmentName: 'Therapist',
+            tableSalaryDefinition: [
+                {
+                    id: 1,
+                    job: 'Therapist',
+                    level: Level.SENIOR,
+                    baseSalary: 9500,
+                    ctc: 10800,
+                    deductions: 12,
+                    bonus: 500,
+                    totalCTC: 11300
+                },
+                {
+                    id: 2,
+                    job: 'Therapist',
+                    level: Level.INTERMEDIATE,
+                    baseSalary: 10000,
+                    ctc: 11500,
+                    deductions: 14,
+                    bonus: 600,
+                    totalCTC: 12100
+                },
+                {
+                    id: 3,
+                    job: 'Lead Therapist',
+                    level: Level.LEAD,
+                    baseSalary: 11000,
+                    ctc: 12000,
+                    deductions: 11,
+                    bonus: 700,
+                    totalCTC: 12700
+                },
+                {
+                    id: 4,
+                    job: 'Therapist Assistant',
+                    level: Level.INTERMEDIATE,
+                    baseSalary: 8500,
+                    ctc: 9500,
+                    deductions: 9,
+                    bonus: 400,
+                    totalCTC: 9900
+                },
+                {
+                    id: 5,
+                    job: 'Junior Therapist',
+                    level: Level.JUNIOR,
+                    baseSalary: 9000,
+                    ctc: 10500,
+                    deductions: 10,
+                    bonus: 300,
+                    totalCTC: 10800
+                }
+            ]
+        }
+    ];
+export const payrollTableTaxDeductionsData: {
+    id: number,
+    taxType: string,
+    taxAmount: number,
+    totalDeduction: number,
+    effectivePeriod: number,
+}[] = [
+        {
+            id: 1,
+            taxType: 'VAT',  // Value Added Tax
+            taxAmount: 1200,
+            totalDeduction: 1200,  // Total VAT deduction
+            effectivePeriod: 1712112000,  // Indicates the month or period when VAT is applied
+        },
+        {
+            id: 2,
+            taxType: 'WHT',  // Withholding Tax
+            taxAmount: 500,
+            totalDeduction: 500,
+            effectivePeriod: 1712112000,
+        },
+        {
+            id: 3,
+            taxType: 'NHIS',  // National Health Insurance Scheme
+            taxAmount: 300,
+            totalDeduction: 300,
+            effectivePeriod: 1712112000,
+        },
+        {
+            id: 4,
+            taxType: 'VAT',
+            taxAmount: 1500,
+            totalDeduction: 1500,
+            effectivePeriod: 1712112000,
+        },
+        {
+            id: 5,
+            taxType: 'WHT',
+            taxAmount: 750,
+            totalDeduction: 750,
+            effectivePeriod: 1712112000,
+        }
+    ];
+
+
+export const payrollTableEmployeePayrollLogsData: {
+    id: number,
+    employeeName: string,
+    changeType: string,  // Changed to string (e.g., 'Salary Increase', 'Deduction Update')
+    oldSalary: number,
+    newSalary: number,
+    reasonForChange: string, // Changed to string (e.g., 'Performance review', 'Error correction')
+    effectiveDate: number,
+}[] = [
+        {
+            id: 1,
+            employeeName: 'John Doe',
+            changeType: 'Salary Increase',
+            oldSalary: 8500,
+            newSalary: 9000,
+            reasonForChange: 'Performance review',
+            effectiveDate: 1712112000,  // timestamp for Dec 1, 2024
+        },
+        {
+            id: 2,
+            employeeName: 'Jane Smith',
+            changeType: 'Deduction Update',
+            oldSalary: 7500,
+            newSalary: 7300,
+            reasonForChange: 'Overpayment correction',
+            effectiveDate: 1712112000,  // timestamp for Dec 1, 2024
+        },
+        {
+            id: 3,
+            employeeName: 'Michael Brown',
+            changeType: 'Bonus Update',
+            oldSalary: 9500,
+            newSalary: 10000,
+            reasonForChange: 'KPI bonus',
+            effectiveDate: 1712112000,  // timestamp for Dec 1, 2024
+        },
+        {
+            id: 4,
+            employeeName: 'Samantha Green',
+            changeType: 'Salary Decrease',
+            oldSalary: 8000,
+            newSalary: 7800,
+            reasonForChange: 'Budget cut',
+            effectiveDate: 1712112000,  // timestamp for Dec 1, 2024
+        },
+        {
+            id: 5,
+            employeeName: 'David White',
+            changeType: 'Salary Increase',
+            oldSalary: 9500,
+            newSalary: 10500,
+            reasonForChange: 'Promotion',
+            effectiveDate: 1712112000,  // timestamp for Dec 1, 2024
+        }
+    ];
+

@@ -1,5 +1,5 @@
 import { Type_vertical_util_tab } from "@/types/componentType";
-import { faCalendarCheck, faCircleDollarToSlot, faDrawPolygon, faListCheck, faRectangleList, faShapes, faSuitcase, faTarp, faUser, faUserCheck, faUsersBetweenLines, } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarCheck, faCircleDollarToSlot, faDrawPolygon, faListCheck, faRectangleList, faShapes, faSuitcase, faTarp, faUser, faUserCheck, faUsersBetweenLines, IconDefinition, } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -112,6 +112,28 @@ export const vertical_util_tab_payroll: Type_vertical_util_tab[] = [
         id: 4,
         title: 'Tax & Deductions',
         icon: faRectangleList,
+    },
+]
+export const vertical_util_tab_update_staff_schedule : {
+    id: number,
+    title: string,
+    icon?: IconDefinition
+}[] = [
+    {
+        id: 1,
+        title: 'Requested Availability List',
+    },
+    {
+        id: 2,
+        title: 'Previous Dates',
+    },
+    {
+        id: 3,
+        title: 'Replicate an existing date',
+    },
+    {
+        id: 4,
+        title: 'Clear All',
     },
 ]
 export const horizontal_util_tab_payroll_by_department: Type_vertical_util_tab[] = [

@@ -32,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
         <div className="flex relative mx-auto max-w-screen-xl  h-screen">
           <Sidebar />
           <div className="absolute left-52 p-6 w-[1024px] h-screen flex flex-col gap-8">

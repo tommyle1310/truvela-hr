@@ -46,8 +46,8 @@ const page = () => {
                                 <TableCell className="">{item.clockIn}</TableCell>
                                 <TableCell className="">{item.checkIn}</TableCell>
                                 <TableCell className="flex">
-                                    <div className={`px-2 py-1 font-bold ${item.status === 'EARLY' || item.status === 'ON_TIME' ? 'bg-green-200 text-green-500' : 'bg-red-200 text-red-500'} flex rounded-sm `}>
-                                        {item.status}</div></TableCell>
+                                    <div className={`px-2 py-1 font-bold ${item.status === 'EARLY' || item.status === 'ON_TIME' ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'} flex rounded-sm `}>
+                                        {item.status === 'EARLY' ? 'Early' : (item.status === 'LATE' ? 'Late' : 'On time')}</div></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

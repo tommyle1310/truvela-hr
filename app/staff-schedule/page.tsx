@@ -27,6 +27,11 @@ import {
 } from "@/components/ui/hover-card"
 import Link from "next/link";
 import { useState } from "react";
+import { DatePicker } from "@/components/DatePicker";
+import { Button } from "@/components/ui/button";
+import { faEllipsis, faPenToSquare, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { EditScheduleSheet } from "@/components/screens/staff-schedule/EditScheduleSheet";
+import MultiSelect from "@/components/MultiSelect";
 
 
 const RenderDecorationDepartmentCount = ({
@@ -140,21 +145,28 @@ const data_table_staff_schedule_monthly_sorted = (order: 'ASC' | 'DESC') => {
 }
 const Page = () => {
     const [sortRule, setSortRule] = useState<'ASC' | 'DESC'>('DESC')
+    const [selectedUpdatingDate, setSelectedUpdatingDate] = useState<number>(Math.floor(new Date().getTime() / 1000))
+
 
     return (
         <div className="flex flex-col p-4 rounded-md shadow-md border">
             <div className="flex items-center justify-between">
-                <h5 className="text-lg font-bold p-2">Staff Schedule</h5>
-                <Select onValueChange={(value: 'ASC' | 'DESC') => setSortRule(value)}>
-                    <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Filtered by date" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {[{ label: 'Oldest to Newest', value: 'ASC' }, { label: 'Newest to Oldest', value: 'DESC' }].map((item, index) => (
-                            <SelectItem key={index} value={item.value}>{item.label}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+                <div className="flex flex-col">
+                    <h5 className="text-lg font-bold p-2">Staff Schedule</h5>
+                </div>
+                <div className="items-center flex gap-2">
+                    <Select onValueChange={(value: 'ASC' | 'DESC') => setSortRule(value)}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Filtered by date" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {[{ label: 'Oldest to Newest', value: 'ASC' }, { label: 'Newest to Oldest', value: 'DESC' }].map((item, index) => (
+                                <SelectItem key={index} value={item.value}>{item.label}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
             </div>
             <Table>
                 <TableCaption>Table representing staff availability.</TableCaption>
@@ -164,6 +176,7 @@ const Page = () => {
                         <TableHead>Morning</TableHead>
                         <TableHead>Afternoon</TableHead>
                         <TableHead>Evening</TableHead>
+                        <TableHead>Action</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -189,6 +202,11 @@ const Page = () => {
                                 {/* Render the department count for the evening shift */}
                                 <div className="flex flex-col gap-1">
                                     {countEmployeesByDepartment(item.evening_employees)}
+                                </div>
+                            </TableCell>
+                            <TableCell>
+                                <div className="flex gap-1 flex-col">
+                                    <EditScheduleSheet date={item.date} />
                                 </div>
                             </TableCell>
                         </TableRow>

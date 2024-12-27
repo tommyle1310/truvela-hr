@@ -1,3 +1,4 @@
+'use client'
 import {
     Table,
     TableBody,
@@ -13,11 +14,19 @@ import { table_staff_schedule_monthly, Type_departments_enum } from "@/data/scre
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import Link from "next/link";
+import { useState } from "react";
 
 
 const RenderDecorationDepartmentCount = ({
@@ -46,7 +55,9 @@ const RenderDecorationDepartmentCount = ({
             return (
                 <HoverCard>
                     <HoverCardTrigger className='flex items-center gap-1'>
-                        📟 Admin ({count})
+                        <div className="bg-green-100 text-green-500 p-1 rounded-md">
+                            Admin ({count})
+                        </div>
                     </HoverCardTrigger>
                     <HoverCardContent>
                         {renderEmployeeDetails()}
@@ -57,7 +68,9 @@ const RenderDecorationDepartmentCount = ({
             return (
                 <HoverCard>
                     <HoverCardTrigger className='flex items-center gap-1'>
-                        👔 Frontdesk ({count})
+                        <div className="bg-cyan-100 text-cyan-500 p-1 rounded-md">
+                            Frontdesk ({count})
+                        </div>
                     </HoverCardTrigger>
                     <HoverCardContent>
                         {renderEmployeeDetails()}
@@ -68,7 +81,9 @@ const RenderDecorationDepartmentCount = ({
             return (
                 <HoverCard>
                     <HoverCardTrigger className='flex items-center gap-1'>
-                        📣 Marketing ({count})
+                        <div className="bg-orange-100 text-orange-500 p-1 rounded-md">
+                            Marketing ({count})
+                        </div>
                     </HoverCardTrigger>
                     <HoverCardContent>
                         {renderEmployeeDetails()}
@@ -79,7 +94,9 @@ const RenderDecorationDepartmentCount = ({
             return (
                 <HoverCard>
                     <HoverCardTrigger className='flex items-center gap-1'>
-                        🪺 Therapist ({count})
+                        <div className="bg-violet-100 text-violet-500 p-1 rounded-md">
+                            Therapist ({count})
+                        </div>
                     </HoverCardTrigger>
                     <HoverCardContent>
                         {renderEmployeeDetails()}
@@ -109,12 +126,38 @@ const countEmployeesByDepartment = (
     ));
 };
 
+const data_table_staff_schedule_monthly_sorted = (order: 'ASC' | 'DESC') => {
+    return table_staff_schedule_monthly.sort((a, b) => {
+        // Compare the dates
+        if (order === 'ASC') {
+            return a.date - b.date;  // Ascending order
+        } else if (order === 'DESC') {
+            return b.date - a.date;  // Descending order
+        } else {
+            throw new Error('Invalid order value. Use "asc" or "desc".');
+        }
+    });
+}
 const Page = () => {
+    const [sortRule, setSortRule] = useState<'ASC' | 'DESC'>('DESC')
+
     return (
-        <div className="flex flex-col">
-            <h5 className="text-lg font-bold p-2">Attendance Overview</h5>
+        <div className="flex flex-col p-4 rounded-md shadow-md border">
+            <div className="flex items-center justify-between">
+                <h5 className="text-lg font-bold p-2">Staff Schedule</h5>
+                <Select onValueChange={(value: 'ASC' | 'DESC') => setSortRule(value)}>
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Filtered by date" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {[{ label: 'Oldest to Newest', value: 'ASC' }, { label: 'Newest to Oldest', value: 'DESC' }].map((item, index) => (
+                            <SelectItem key={index} value={item.value}>{item.label}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
             <Table>
-                <TableCaption>A list of recent staff attendance.</TableCaption>
+                <TableCaption>Table representing staff availability.</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">Date</TableHead>
@@ -124,7 +167,7 @@ const Page = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {table_staff_schedule_monthly.map((item) => (
+                    {data_table_staff_schedule_monthly_sorted(sortRule).map((item) => (
                         <TableRow key={item.date}>
                             <TableCell className="font-medium w-56 flex items-center gap-1">
                                 {/* Format the date to a readable format */}
@@ -132,19 +175,19 @@ const Page = () => {
                             </TableCell>
                             <TableCell>
                                 {/* Render the department count for the morning shift */}
-                                <div className="flex flex-col">
+                                <div className="flex flex-col gap-1">
                                     {countEmployeesByDepartment(item.morning_employees)}
                                 </div>
                             </TableCell>
                             <TableCell>
                                 {/* Render the department count for the afternoon shift */}
-                                <div className="flex flex-col">
+                                <div className="flex flex-col gap-1">
                                     {countEmployeesByDepartment(item.afternoon_employees)}
                                 </div>
                             </TableCell>
                             <TableCell>
                                 {/* Render the department count for the evening shift */}
-                                <div className="flex flex-col">
+                                <div className="flex flex-col gap-1">
                                     {countEmployeesByDepartment(item.evening_employees)}
                                 </div>
                             </TableCell>

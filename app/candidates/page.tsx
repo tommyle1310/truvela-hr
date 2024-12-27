@@ -51,7 +51,6 @@ const RenderCandidateStatus = ({ type }: { type: Type_candidate_status }) => {
 
 const page = () => {
     const [selectedCandidateStatus, setSelectedCandidateStatus] = useState<string>('ALL')
-
     return (
         <div className='p-4 rounded-md shadow-md border flex flex-col'>
             <div className="justify-between flex items-center">
@@ -61,7 +60,7 @@ const page = () => {
                         <SelectValue placeholder="Filtered by Status" />
                     </SelectTrigger>
                     <SelectContent>
-                        {[{ label: 'All', value: 'All' }, ...arr_candidate_status].map((item, index) => (
+                        {[{ label: 'All', value: 'ALL' }, ...arr_candidate_status].map((item, index) => (
                             <SelectItem key={index} value={item.value}>{item.label}</SelectItem>
                         ))}
                     </SelectContent>

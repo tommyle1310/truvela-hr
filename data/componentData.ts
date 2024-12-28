@@ -114,15 +114,17 @@ export const vertical_util_tab_payroll: Type_vertical_util_tab[] = [
         icon: faRectangleList,
     },
 ]
-export const vertical_util_tab_update_staff_schedule : {
-    id: number,
-    title: string,
-    icon?: IconDefinition
+export const vertical_util_tab_update_staff_schedule: {
+    id: number;
+    title: string;
+    icon?: IconDefinition;
+    onClick?: (callback: () => void) => void; // onClick accepts a callback that takes no parameters and returns void
 }[] = [
-    {
-        id: 1,
-        title: 'Requested Availability List',
-    },
+        {
+            id: 1,
+            title: 'Requested Availability List',
+            onClick: (callback: () => void) => callback(), // onClick executes the provided callback
+        },
     {
         id: 2,
         title: 'Previous Dates',

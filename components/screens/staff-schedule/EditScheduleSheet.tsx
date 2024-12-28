@@ -1,4 +1,6 @@
 'use client'
+import { DashboardAtendanceReviewTable } from "@/components/Dashboard/AttendanceReview"
+import Modal from "@/components/Modal"
 import MultiSelect from "@/components/MultiSelect"
 import VerticalUtilTab from "@/components/Tabs/VerticalUtilTab"
 import { Button } from "@/components/ui/button"
@@ -19,9 +21,12 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { format } from "date-fns"
 import { useState } from "react"
+import { RequestedAvailabilityTable } from "./RequestedAvailabilityTable"
+import { staff_schedule_EmployeeList_item } from "@/data/screens/staff-schedule"
 
 export function EditScheduleSheet({ date }: { date: number }) {
     const [selectedUtilTab, setSelectedUtilTab] = useState<string>('')
+    const [isModalRequestAvailabilityOpen, setIsModalRequestAvailabilityOpen] = useState<boolean>(false)
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -30,18 +35,24 @@ export function EditScheduleSheet({ date }: { date: number }) {
                 </div>
             </SheetTrigger>
             <SheetContent side={'left'} className="overflow-y-auto">
+                <Modal isOpen={isModalRequestAvailabilityOpen} setIsOpen={setIsModalRequestAvailabilityOpen}>
+                    <RequestedAvailabilityTable />
+                </Modal>
+
                 <SheetHeader>
                     <SheetTitle>{format(new Date(date * 1000), "PPP")}</SheetTitle>
                     <SheetDescription>
                         Make changes to your staff schedule here. Click save when you're done.
                     </SheetDescription>
                 </SheetHeader>
-              <div className="grid grid-cols-12 gap-4 my-4">
-                <div className="col-span-3 flex flex-col gap-2">
-                    {vertical_util_tab_update_staff_schedule.map(item => (
-                        <Button variant={'outline'}>{item.title}</Button>
-                    ))}
-                </div>
+                <div className="grid grid-cols-12 gap-4 my-4">
+                    <div className="col-span-3 flex flex-col gap-2">
+                        {vertical_util_tab_update_staff_schedule.map(item => (
+                            <Button onClick={() => {
+                                item.onClick && item.onClick(() => setIsModalRequestAvailabilityOpen(!isModalRequestAvailabilityOpen))
+                            }} variant={'outline'}>{item.title}</Button>
+                        ))}
+                    </div>
                     <div className="w-full flex flex-col gap-4 col-span-9">
                         {['Therapist', 'Frontdesk', 'Admin', 'Marketer'].map((item, index) => (
                             <div key={index} className="rounded-md border shadow-md p-4 flex flex-col gap-2">
@@ -49,13 +60,13 @@ export function EditScheduleSheet({ date }: { date: number }) {
                                 {['Morning', 'Afternoon', 'Evening'].map((item, index) => (
                                     <div className="flex flex-col gap-1">
                                         {item} (10:00 AM - 04:00 PM)
-                                        <MultiSelect />
+                                        <MultiSelect data={staff_schedule_EmployeeList_item.map(item => ({ label: item.name, value: item.id }))} />
                                     </div>
                                 ))}
                             </div>
                         ))}
                     </div>
-              </div>
+                </div>
                 <SheetFooter>
                     <SheetClose asChild>
                         <Button type="submit">Save changes</Button>

@@ -10,16 +10,7 @@ interface Option {
     value: string;
 }
 
-const MultiSelect: React.FC = () => {
-    // Available options
-    const options: Option[] = [
-        { label: "Option 1", value: "option1" },
-        { label: "Option 2", value: "option2" },
-        { label: "Option 3", value: "option3" },
-        { label: "Option 4", value: "option4" },
-        { label: "Option 5", value: "option5" },
-        { label: "Option 6", value: "option6" },
-    ];
+const MultiSelect = ({ data }: { data: { label: string, value: string }[] }) => {
 
     // State to hold selected values, search query, and dropdown open state
     const [selectedValues, setSelectedValues] = useState<string[]>([]);
@@ -58,8 +49,8 @@ const MultiSelect: React.FC = () => {
         };
     }, []);
 
-    // Filter options based on search query
-    const filteredOptions = options.filter((option) =>
+    // Filter data based on search query
+    const filteredOptions = data.filter((option) =>
         option.label.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -71,20 +62,20 @@ const MultiSelect: React.FC = () => {
                 onClick={toggleDropdown}
             >
                 {selectedValues.length > 0 ? (
-                    // Show the selected options with a limit on the number of visible items
+                    // Show the selected data with a limit on the number of visible items
                     <>
                         {selectedValues.slice(0, MAX_VISIBLE_SELECTED).map((value) => {
-                            const option = options.find((opt) => opt.value === value);
+                            const option = data.find((item) => item.value === value);
                             return option ? (
                                 <span
                                     key={value}
                                     className="text-gray-700 bg-gray-200 px-2 py-1 text-xs rounded-md"
                                 >
                                     <div className=" text-xs flex items-center gap-1  ">
-                                    {option.label}
+                                        {option.label}
                                         <div onClick={() => handleChange(option.value)} className="hover p-1 hover:bg-red-300 hover:text-red-700 center rounded-full">
-                                        <FontAwesomeIcon icon={faXmark}/>
-                                    </div>
+                                            <FontAwesomeIcon icon={faXmark} />
+                                        </div>
                                     </div>
                                 </span>
                             ) : null;

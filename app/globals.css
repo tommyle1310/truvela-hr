@@ -161,3 +161,7 @@ body {
 .hover {
   @apply hover:duration-300 cursor-pointer
 }
+
+.hover-icon {
+  @apply rounded-full p-1 center hover:bg-gray-100 cursor-pointer
+}

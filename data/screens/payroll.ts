@@ -1,3 +1,4 @@
+import { Enum_Level } from "@/types/enums";
 import { faChartLine, faDollarSign, faFileInvoiceDollar, faGift, faMinusCircle, faUsers, IconDefinition } from "@fortawesome/free-solid-svg-icons"
 
 export const payroll_dashboard_cards: {
@@ -47,17 +48,7 @@ export const payroll_dashboard_cards: {
         },
     ];
 
-enum Level {
-    INTERN = "Intern",
-    JUNIOR = "Junior",
-    INTERMEDIATE = "Intermediate",
-    SENIOR = "Senior",
-    LEAD = "Lead",
-    ELITE = "Elite",
-    DIRECTOR = "Director",
-    VP = "Vice President",
-    C_LEVEL = "C-Level"
-}
+
 
 
 export const payrollTableThisMonthLogData: {
@@ -66,7 +57,7 @@ export const payrollTableThisMonthLogData: {
     tableSalaryDefinition: {
         id: number,
         name: string,
-        level: Level,  // Using the Level enum here
+        level: Enum_Level,  // Using the Enum_Level enum here
         avatar: string,
         ctc: number,
         salaryPerMonth: number,
@@ -81,7 +72,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 1,
                     name: 'Teo Nguyen',
-                    level: Level.SENIOR,  // Using Level Enum
+                    level: Enum_Level.SENIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/4636247?v=4',
                     ctc: 9200,
                     salaryPerMonth: 870,
@@ -91,7 +82,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 2,
                     name: 'Alice Zhang',
-                    level: Level.INTERMEDIATE,  // Using Level Enum
+                    level: Enum_Level.INTERMEDIATE,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/4660142?v=4',
                     ctc: 10500,
                     salaryPerMonth: 1000,
@@ -101,7 +92,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 3,
                     name: 'John Smith',
-                    level: Level.SENIOR,  // Using Level Enum
+                    level: Enum_Level.SENIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/3536760?v=4',
                     ctc: 12000,
                     salaryPerMonth: 1150,
@@ -111,7 +102,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 4,
                     name: 'Sarah Lee',
-                    level: Level.JUNIOR,  // Using Level Enum
+                    level: Enum_Level.JUNIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/4879316?v=4',
                     ctc: 9500,
                     salaryPerMonth: 900,
@@ -121,7 +112,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 5,
                     name: 'Michael Clark',
-                    level: Level.LEAD,  // Using Level Enum
+                    level: Enum_Level.LEAD,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/13251780?v=4',
                     ctc: 11000,
                     salaryPerMonth: 1050,
@@ -137,7 +128,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 1,
                     name: 'Emily Davis',
-                    level: Level.JUNIOR,  // Using Level Enum
+                    level: Enum_Level.JUNIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/6946499?v=4',
                     ctc: 8500,
                     salaryPerMonth: 800,
@@ -147,7 +138,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 2,
                     name: 'David Wang',
-                    level: Level.INTERMEDIATE,  // Using Level Enum
+                    level: Enum_Level.INTERMEDIATE,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/6699730?v=4',
                     ctc: 9500,
                     salaryPerMonth: 900,
@@ -157,7 +148,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 3,
                     name: 'Sophia Brown',
-                    level: Level.SENIOR,  // Using Level Enum
+                    level: Enum_Level.SENIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/7794540?v=4',
                     ctc: 10200,
                     salaryPerMonth: 950,
@@ -167,7 +158,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 4,
                     name: 'James Wilson',
-                    level: Level.JUNIOR,  // Using Level Enum
+                    level: Enum_Level.JUNIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/6527071?v=4',
                     ctc: 9700,
                     salaryPerMonth: 920,
@@ -177,7 +168,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 5,
                     name: 'Olivia Harris',
-                    level: Level.INTERMEDIATE,  // Using Level Enum
+                    level: Enum_Level.INTERMEDIATE,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/2994829?v=4',
                     ctc: 10500,
                     salaryPerMonth: 1000,
@@ -193,7 +184,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 1,
                     name: 'Rachel Green',
-                    level: Level.INTERN,  // Using Level Enum
+                    level: Enum_Level.INTERN,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/5321847?v=4',
                     ctc: 7600,
                     salaryPerMonth: 700,
@@ -203,7 +194,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 2,
                     name: 'Monica Geller',
-                    level: Level.JUNIOR,  // Using Level Enum
+                    level: Enum_Level.JUNIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/15601735?v=4',
                     ctc: 8400,
                     salaryPerMonth: 750,
@@ -213,7 +204,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 3,
                     name: 'Phoebe Buffay',
-                    level: Level.SENIOR,  // Using Level Enum
+                    level: Enum_Level.SENIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/5669399?v=4',
                     ctc: 8800,
                     salaryPerMonth: 800,
@@ -223,7 +214,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 4,
                     name: 'Chandler Bing',
-                    level: Level.INTERMEDIATE,  // Using Level Enum
+                    level: Enum_Level.INTERMEDIATE,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/10449062?v=4',
                     ctc: 9100,
                     salaryPerMonth: 850,
@@ -233,7 +224,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 5,
                     name: 'Ross Geller',
-                    level: Level.JUNIOR,  // Using Level Enum
+                    level: Enum_Level.JUNIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/7443882?v=4',
                     ctc: 9200,
                     salaryPerMonth: 880,
@@ -249,7 +240,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 1,
                     name: 'Claire Richards',
-                    level: Level.SENIOR,  // Using Level Enum
+                    level: Enum_Level.SENIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/20435235?v=4',
                     ctc: 10800,
                     salaryPerMonth: 1000,
@@ -259,7 +250,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 2,
                     name: 'Oliver Stone',
-                    level: Level.INTERMEDIATE,  // Using Level Enum
+                    level: Enum_Level.INTERMEDIATE,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/2248709?v=4',
                     ctc: 11500,
                     salaryPerMonth: 1100,
@@ -269,7 +260,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 3,
                     name: 'Mia Roberts',
-                    level: Level.LEAD,  // Using Level Enum
+                    level: Enum_Level.LEAD,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/9876543?v=4',
                     ctc: 12000,
                     salaryPerMonth: 1150,
@@ -279,7 +270,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 4,
                     name: 'James Maxwell',
-                    level: Level.INTERMEDIATE,  // Using Level Enum
+                    level: Enum_Level.INTERMEDIATE,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/8765432?v=4',
                     ctc: 9500,
                     salaryPerMonth: 900,
@@ -289,7 +280,7 @@ export const payrollTableThisMonthLogData: {
                 {
                     id: 5,
                     name: 'Emily Johnson',
-                    level: Level.JUNIOR,  // Using Level Enum
+                    level: Enum_Level.JUNIOR,  // Using Enum_Level Enum
                     avatar: 'https://avatars.githubusercontent.com/u/12345678?v=4',
                     ctc: 10500,
                     salaryPerMonth: 1000,
@@ -305,7 +296,7 @@ export const payrollTableSalaryDefinitionData: {
     tableSalaryDefinition: {
         id: number,
         job: string,  // Removed 'jobTitle' and using 'job' instead
-        level: Level,  // Using the Level Enum to identify employee's level
+        level: Enum_Level,  // Using the Enum_Level Enum to identify employee's level
         baseSalary: number,
         ctc: number,
         deductions: number,
@@ -320,7 +311,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 1,
                     job: 'Marketing Specialist',
-                    level: Level.SENIOR,
+                    level: Enum_Level.SENIOR,
                     baseSalary: 8000,
                     ctc: 9200,
                     deductions: 10,
@@ -330,7 +321,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 2,
                     job: 'Marketing Executive',
-                    level: Level.INTERMEDIATE,
+                    level: Enum_Level.INTERMEDIATE,
                     baseSalary: 9000,
                     ctc: 10500,
                     deductions: 12,
@@ -340,7 +331,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 3,
                     job: 'Marketing Manager',
-                    level: Level.SENIOR,
+                    level: Enum_Level.SENIOR,
                     baseSalary: 10500,
                     ctc: 12000,
                     deductions: 15,
@@ -350,7 +341,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 4,
                     job: 'Marketing Assistant',
-                    level: Level.JUNIOR,
+                    level: Enum_Level.JUNIOR,
                     baseSalary: 7500,
                     ctc: 9500,
                     deductions: 8,
@@ -360,7 +351,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 5,
                     job: 'Marketing Strategist',
-                    level: Level.LEAD,
+                    level: Enum_Level.LEAD,
                     baseSalary: 10000,
                     ctc: 11000,
                     deductions: 14,
@@ -376,7 +367,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 1,
                     job: 'Admin Officer',
-                    level: Level.JUNIOR,
+                    level: Enum_Level.JUNIOR,
                     baseSalary: 7500,
                     ctc: 8500,
                     deductions: 10,
@@ -386,7 +377,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 2,
                     job: 'Admin Manager',
-                    level: Level.INTERMEDIATE,
+                    level: Enum_Level.INTERMEDIATE,
                     baseSalary: 9000,
                     ctc: 9500,
                     deductions: 13,
@@ -396,7 +387,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 3,
                     job: 'Admin Executive',
-                    level: Level.SENIOR,
+                    level: Enum_Level.SENIOR,
                     baseSalary: 9500,
                     ctc: 10200,
                     deductions: 9,
@@ -406,7 +397,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 4,
                     job: 'Office Administrator',
-                    level: Level.JUNIOR,
+                    level: Enum_Level.JUNIOR,
                     baseSalary: 8500,
                     ctc: 9700,
                     deductions: 11,
@@ -416,7 +407,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 5,
                     job: 'Admin Specialist',
-                    level: Level.INTERMEDIATE,
+                    level: Enum_Level.INTERMEDIATE,
                     baseSalary: 9500,
                     ctc: 10500,
                     deductions: 8,
@@ -432,7 +423,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 1,
                     job: 'Frontdesk',
-                    level: Level.INTERN,
+                    level: Enum_Level.INTERN,
                     baseSalary: 6000,
                     ctc: 7600,
                     deductions: 6,
@@ -442,7 +433,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 2,
                     job: 'Frontdesk',
-                    level: Level.JUNIOR,
+                    level: Enum_Level.JUNIOR,
                     baseSalary: 7200,
                     ctc: 8400,
                     deductions: 7,
@@ -452,7 +443,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 3,
                     job: 'Frontdesk Manager',
-                    level: Level.SENIOR,
+                    level: Enum_Level.SENIOR,
                     baseSalary: 8000,
                     ctc: 8800,
                     deductions: 9,
@@ -462,7 +453,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 4,
                     job: 'Frontdesk Assistant',
-                    level: Level.INTERMEDIATE,
+                    level: Enum_Level.INTERMEDIATE,
                     baseSalary: 8200,
                     ctc: 9100,
                     deductions: 5,
@@ -472,7 +463,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 5,
                     job: 'Junior Frontdesk Associate',
-                    level: Level.JUNIOR,
+                    level: Enum_Level.JUNIOR,
                     baseSalary: 7600,
                     ctc: 9200,
                     deductions: 8,
@@ -488,7 +479,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 1,
                     job: 'Therapist',
-                    level: Level.SENIOR,
+                    level: Enum_Level.SENIOR,
                     baseSalary: 9500,
                     ctc: 10800,
                     deductions: 12,
@@ -498,7 +489,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 2,
                     job: 'Therapist',
-                    level: Level.INTERMEDIATE,
+                    level: Enum_Level.INTERMEDIATE,
                     baseSalary: 10000,
                     ctc: 11500,
                     deductions: 14,
@@ -508,7 +499,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 3,
                     job: 'Lead Therapist',
-                    level: Level.LEAD,
+                    level: Enum_Level.LEAD,
                     baseSalary: 11000,
                     ctc: 12000,
                     deductions: 11,
@@ -518,7 +509,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 4,
                     job: 'Therapist Assistant',
-                    level: Level.INTERMEDIATE,
+                    level: Enum_Level.INTERMEDIATE,
                     baseSalary: 8500,
                     ctc: 9500,
                     deductions: 9,
@@ -528,7 +519,7 @@ export const payrollTableSalaryDefinitionData: {
                 {
                     id: 5,
                     job: 'Junior Therapist',
-                    level: Level.JUNIOR,
+                    level: Enum_Level.JUNIOR,
                     baseSalary: 9000,
                     ctc: 10500,
                     deductions: 10,

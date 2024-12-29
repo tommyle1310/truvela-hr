@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { cards_all_department_members } from '@/data/screens/departments/departments'
+import Link from 'next/link'
 
 
 const page = () => {
@@ -29,7 +30,7 @@ const page = () => {
                     <Separator />
                     <div className="flex flex-col">
                         {item.members.slice(-5).map(item => (
-                            <div key={item.id} className="items-center justify-between flex hover hover:bg-gray-100 px-2 py-1 rounded-md">
+                            <Link href={`/employees/${item.id}`} key={item.id} className="items-center justify-between flex hover hover:bg-gray-100 px-2 py-1 rounded-md">
                                 <div className="flex items-center gap-2">
                                     <Avatar>
                                         <AvatarImage src={item.avatar} />
@@ -41,7 +42,7 @@ const page = () => {
                                     </div>
                                 </div>
                                 <FontAwesomeIcon icon={faChevronRight} />
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>

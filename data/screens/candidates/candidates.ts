@@ -1,8 +1,6 @@
-import { Type_dropdown } from "@/types/componentType";
-
 export type Type_candidate_status = 'APPLIED' | 'SELECTED' | 'REJECTED' | 'IN_PROGRESS';
 
-export const arr_candidate_status: Type_dropdown = [
+export const arr_candidate_status = [
     { value: 'APPLIED', label: 'Applied' },
     { value: 'SELECTED', label: 'Selected' },
     { value: 'REJECTED', label: 'Rejected' },

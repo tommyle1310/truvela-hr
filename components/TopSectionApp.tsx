@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faChevronDown, faIdBadge } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Popover,
@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation";
 import { Top_Section_Left_Employee_details_breadcrumb } from '@/app/employees/[employeeId]/page';
 import { Top_Section_Left_Department_details_breadcrumb } from '@/app/departments/[departmentId]/page';
 import IconWithBg from './IconWithBg';
+import { Button } from './ui/button';
 
 
 
@@ -48,6 +49,8 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
             return (<RenderTopLeft_ByCase title={'Candidates'} subtitle='show all candidates' />);
         case '/staff-schedule':
             return (<RenderTopLeft_ByCase title={'Staff schedule'} subtitle='schedule for staff availability' />);
+        case '/jobs':
+            return (<RenderTopLeft_ByCase title={'Jobs'} subtitle='Show All Jobs' />);
 
         default:
             return <div></div>;
@@ -85,7 +88,10 @@ const TopSectionApp = () => {
                             <FontAwesomeIcon icon={faChevronDown} />
                         </div>
                     </PopoverTrigger>
-                    <PopoverContent>Place content for the popover here.</PopoverContent>
+                    <PopoverContent className='flex flex-col p-0 max-w-[10rem]'>
+                        <Button className='flex items-center gap-1 justify-start' variant={'ghost'}><FontAwesomeIcon icon={faIdBadge} />My Profile</Button>
+                        <Button className='text-red-500 flex items-center gap-1 justify-start hover hover:text-red-600' variant={'ghost'}><FontAwesomeIcon icon={faArrowRightFromBracket} />Logout</Button>
+                    </PopoverContent>
                 </Popover>
             </div>
         </div>

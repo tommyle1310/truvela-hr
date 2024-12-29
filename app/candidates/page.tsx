@@ -18,8 +18,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import React, { useState } from 'react'
-import { arr_candidate_status, table_candidates, Type_candidate_status } from '@/data/screens/candidates/candidates'
 import { format } from 'date-fns'
+import { arr_candidate_status, table_candidates, Type_candidate_status } from '@/data/screens/candidates/candidates'
 
 const RenderCandidateStatus = ({ type }: { type: Type_candidate_status }) => {
     switch (type) {

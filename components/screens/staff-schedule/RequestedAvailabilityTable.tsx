@@ -9,12 +9,13 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { attendanceTableData } from "@/data/attendance"
-import { table_requested_availability } from "@/data/screens/staff-schedule"
+import { attendanceTableData } from "@/data/screens/attendance/attendance"
+import { table_requested_availability } from "@/data/screens/staff-schedule/staff-schedule"
 import { Enum_ApprovalStatus, Enum_Shift } from "@/types/enums"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faRightLong, faSquareCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { format } from "date-fns"
+import { Button } from "@/components/ui/button"
 
 const DecoratedShiftChosen = ({ shift }: { shift: Enum_Shift }) => {
     switch (shift) {
@@ -41,7 +42,13 @@ const DecoratedAprrovalStatus = ({ status }: { status: Enum_ApprovalStatus }) =>
 export function RequestedAvailabilityTable() {
     return (
         <div className="flex flex-col">
-            <h5 className="text-lg font-bold p-2">Request Availability Table</h5>
+            <div className="flex justify-between items-center">
+                <h5 className="text-lg font-bold p-2">Request Availability Table</h5>
+                <Button className="flex items-center gap-1 bg-purple-700 hover:bg-purple-800 mr-4">
+                    Auto-Fill the schedule
+                    <FontAwesomeIcon icon={faSquareCheck} />
+                </Button>
+            </div>
             <Table>
                 <TableCaption>A list of recent staff attendance.</TableCaption>
                 <TableHeader>

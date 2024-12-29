@@ -4,14 +4,13 @@ import {
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import React from 'react'
-import { attendanceTableData } from "@/data/attendance"
+import { table_attendance } from "@/data/screens/attendance/attendance"
 import SearchInput from "@/components/SearchInput"
 
 const page = () => {
@@ -33,7 +32,7 @@ const page = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {attendanceTableData.map((item) => (
+                        {table_attendance.map((item) => (
                             <TableRow key={item.id} className="">
                                 <TableCell className="font-medium w-56 flex items-center gap-1">
                                     <Avatar>

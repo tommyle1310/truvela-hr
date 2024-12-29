@@ -12,7 +12,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Separator } from "@/components/ui/separator"
-import { payroll_dashboard_cards } from "@/data/screens/payroll"
+import { cards_payroll_dashboard } from "@/data/screens/payroll/payroll"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -28,7 +28,7 @@ const DrawerPayrollDashboard = () => {
                     <DrawerDescription>This action cannot be undone.</DrawerDescription>
                 </DrawerHeader> */}
                 <div className="col-span-9 grid grid-cols-2 gap-4">
-                    {payroll_dashboard_cards.map((item) => (
+                    {cards_payroll_dashboard.map((item) => (
                         <div key={item.id} className='p-4  flex flex-col gap-4 shadow-md rounded-lg border '>
                             <div className="flex justify-between items-center">
                                 <div className="flex flex-col">

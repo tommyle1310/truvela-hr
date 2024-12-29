@@ -1,5 +1,7 @@
 import React from 'react'
-import { input_form_personal_information_add_employee, input_form_professional_information_add_employee, tabs_add_edit_employee } from '@/data/screens/employees'
+import { input_form_personal_information_add_employee } from '@/data/screens/employess/componentData'
+import { input_form_professional_information_add_employee } from '@/data/screens/employess/componentData'
+import { tabs_add_edit_employee } from '@/data/screens/employess/componentData'
 import InputControl from '@/components/InputControl'
 import { Button } from '@/components/ui/button';
 import TabHeaders from '@/components/TabHeaders';
@@ -97,7 +99,10 @@ const TabHorizontalContentRender = ({ listData, currentProgress, setCurrentProgr
                     <TabHeaders currentProgress={currentProgress} icon={item.icon} title={item.title} id={item.id} setCurrentProgress={setCurrentProgress} key={item.id} />
                 ))}
             </div>
+
+            {/* content in Add State in employees/page.tsx */}
             <TabProgressContentRender type={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+
             <div className='flex justify-end items-center gap-4'>
                 <Button onClick={handleCancel} variant={'outline'}>Cancel</Button>
                 <Button onClick={handleNextStep}>{currentProgress === tabs_add_edit_employee[tabs_add_edit_employee.length - 1].title ? 'Confirm' : 'Next'}</Button>

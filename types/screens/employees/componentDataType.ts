@@ -17,7 +17,7 @@ export type Type_input_form_add_edit_employee = {
     }
 }
 
-export type TypeEmployeeContent = 'ALL_EMPLOYEE' | 'ADD' | 'EDIT'
+export type Type_state_view_add_edit_employee_content = 'ALL_EMPLOYEE' | 'ADD' | 'EDIT'
 
 
 export type Type_states_add_edit_employee = {

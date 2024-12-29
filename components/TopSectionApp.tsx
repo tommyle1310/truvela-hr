@@ -10,8 +10,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import SearchInput from "@/components/SearchInput";
 import { usePathname } from "next/navigation";
-import { Employee_details_topSection_left_breadcrumb } from '@/app/employees/[employeeId]/page';
-import { Department_members_topSection_left_breadcrumb } from '@/app/departments/[departmentId]/page';
+import { Top_Section_Left_Employee_details_breadcrumb } from '@/app/employees/[employeeId]/page';
+import { Top_Section_Left_Department_details_breadcrumb } from '@/app/departments/[departmentId]/page';
 import IconWithBg from './IconWithBg';
 
 
@@ -21,10 +21,10 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
 
     // Check for paths that start with '/employees/' (i.e., dynamic /employees/... paths)
     if (pathname.startsWith('/employees/')) {
-        return <Employee_details_topSection_left_breadcrumb />; // For dynamic employee paths
+        return <Top_Section_Left_Employee_details_breadcrumb />; // For dynamic employee paths
     }
     if (pathname.startsWith('/departments/')) {
-        return <Department_members_topSection_left_breadcrumb />
+        return <Top_Section_Left_Department_details_breadcrumb />
     }
 
     // Handle the exact '/employees' path

@@ -1,5 +1,5 @@
 'use client'
-import { faCalendar, faCalendarCheck, faListCheck, faSortDown, faSortUp, faSuitcase, faUsersLine } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faSortDown, faSortUp, } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Card,
@@ -12,46 +12,9 @@ import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/ui/calendar";
 import React from "react";
 import { DashboardAtendanceReviewTable } from "@/components/Dashboard/AttendanceReview";
+import { cards_dashboard } from "@/data/screens/dashboard/dashboard";
 
 
-export const dataDashboardCards = [
-  {
-    id: 1,
-    title: 'Total Employee',
-    mainMetric: 560,
-    isPositiveTrend: true,
-    trendMetric: '12%',
-    lastUpdated: 'December 20, 2024',
-    icon: faUsersLine
-  },
-  {
-    id: 2,
-    title: 'Total Applicant',
-    mainMetric: 1020,
-    isPositiveTrend: true,
-    trendMetric: '21%',
-    lastUpdated: 'December 16, 2024',
-    icon: faSuitcase
-  },
-  {
-    id: 3,
-    title: 'Today Attendance',
-    mainMetric: 223,
-    isPositiveTrend: false,
-    trendMetric: '38%',
-    lastUpdated: 'December 23, 2024',
-    icon: faCalendarCheck
-  },
-  {
-    id: 4,
-    title: 'Total Projects',
-    mainMetric: 884,
-    isPositiveTrend: true,
-    trendMetric: '12%',
-    lastUpdated: 'December 22, 2024',
-    icon: faListCheck
-  },
-]
 
 
 
@@ -64,7 +27,7 @@ export default function Home() {
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-8 grid grid-cols-2 gap-4 w-full ">
 
-          {dataDashboardCards.map(item => (
+          {cards_dashboard.map(item => (
             <Card key={item.id} className="gap-0 p-0 ">
               <CardHeader className="p-4 flex flex-row items-center gap-1">
                 <div className="w-8 aspect-square flex justify-center items-center bg-violet-100 rounded-md">

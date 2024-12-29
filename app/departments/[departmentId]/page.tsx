@@ -28,10 +28,10 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { attendanceReviewData } from '@/data/screens/employees'
+import { table_attendance } from '@/data/screens/attendance/attendance'
 
 
-export const Department_members_topSection_left_breadcrumb = () => {
+export const Top_Section_Left_Department_details_breadcrumb = () => {
     const { departmentId } = useParams()
 
     return (
@@ -86,7 +86,7 @@ const page = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {attendanceReviewData.map((item) => (
+                    {table_attendance.map((item) => (
                         <TableRow key={item.id}>
                             <TableCell onClick={() => router.push(`/employees/${item.id}`)} className="cursor-pointer hover hover:bg-gray-100 font-medium w-56 flex items-center gap-1">
                                 <Avatar >

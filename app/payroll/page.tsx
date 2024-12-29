@@ -1,6 +1,11 @@
 'use client'
-import { horizontal_util_tab_payroll_by_department, vertical_util_tab_payroll } from '@/data/componentData'
-import { payrollTableEmployeePayrollLogsData, payrollTableSalaryDefinitionData, payrollTableTaxDeductionsData, payrollTableThisMonthLogData } from '@/data/screens/payroll'
+import { horizontal_util_tab_payroll_by_department, vertical_util_tab_payroll } from '@/data/screens/payroll/componentData'
+import {
+    table_payroll_this_month_log,
+    table_payroll_salary_definition,
+    table_payroll_tax_deductions,
+    table_payroll_employee_payroll_log
+} from '@/data/screens/payroll/payroll'
 import { faCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
@@ -58,7 +63,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {payrollTableThisMonthLogData.find(item => item.departmentName === currentProgress)?.tableSalaryDefinition.map((item) => (
+                            {table_payroll_this_month_log.find(item => item.departmentName === currentProgress)?.tableSalaryDefinition.map((item) => (
                                 <TableRow key={item.id} className="">
                                     <TableCell className="font-medium w-56 flex items-center gap-1">
                                         <Avatar>
@@ -112,7 +117,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {payrollTableSalaryDefinitionData.find(item => item.departmentName === currentProgress)?.tableSalaryDefinition.map((item) => (
+                            {table_payroll_salary_definition.find(item => item.departmentName === currentProgress)?.tableSalaryDefinition.map((item) => (
                                 <TableRow key={item.id} className="">
                                     <TableCell className="  flex items-center gap-1"> {item.job}</TableCell>
                                     <TableCell className=" ">{item.level}</TableCell>
@@ -147,7 +152,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {payrollTableEmployeePayrollLogsData.map((item) => (
+                            {table_payroll_employee_payroll_log.map((item) => (
                                 <TableRow key={item.id} className="">
                                     <TableCell className="  flex items-center gap-1"> {item.employeeName}</TableCell>
                                     <TableCell className=" ">{item.changeType}</TableCell>
@@ -179,7 +184,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {payrollTableTaxDeductionsData.map((item) => (
+                            {table_payroll_tax_deductions.map((item) => (
                                 <TableRow key={item.id} className="">
                                     <TableCell className=" ">{item.taxType}</TableCell>
                                     <TableCell className=" ">${item.taxAmount}</TableCell>

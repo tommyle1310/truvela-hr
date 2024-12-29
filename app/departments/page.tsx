@@ -6,8 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { all_departments_members } from '@/data/screens/departments'
 import { useRouter } from 'next/navigation'
+import { cards_all_department_members } from '@/data/screens/departments/departments'
 
 
 const page = () => {
@@ -17,7 +17,7 @@ const page = () => {
             <div className="col-span-2 max-w-sm">
                 <SearchInput />
             </div>
-            {all_departments_members.map(item => (
+            {cards_all_department_members.map(item => (
                 <div key={item.id} className="p-4 rounded-md border flex flex-col gap-2">
                     <div className="flex justify-between items-center">
                         <div className="flex flex-col">

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 const VerticalUtilTab = ({ listData, selectedUtilTab, setSelectedUtilTab }: {
-    listData: { title: string, icon?: IconDefinition, id: number }[], selectedUtilTab: string, setSelectedUtilTab: React.Dispatch<React.SetStateAction<string>>
+    listData: { title: string, icon?: IconDefinition, id: number | string }[], selectedUtilTab: string, setSelectedUtilTab: React.Dispatch<React.SetStateAction<string>>
 }) => {
     return (
         <div className="w-full bg-red-100 rounded-lg shadow-md border overflow-hidden">
@@ -14,9 +14,9 @@ const VerticalUtilTab = ({ listData, selectedUtilTab, setSelectedUtilTab }: {
                     onClick={() => setSelectedUtilTab(item.title)}
                     variant={selectedUtilTab === item.title ? 'default' : 'outline'}
                     className={`flex gap-1 justify-start ${selectedUtilTab === item.title ? 'text-white w-full rounded-none' : ' rounded-none w-full'}`}>
-                        {item.icon &&
+                    {item.icon &&
                         <FontAwesomeIcon icon={item.icon} />
-                        }
+                    }
                     {item.title}
                 </Button>
             ))}

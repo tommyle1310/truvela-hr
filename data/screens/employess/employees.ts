@@ -1,4 +1,32 @@
-import { Type_employee_details_data } from "@/types/screens/employeeDetails/employeeDetails"
+import { Type_states_add_edit_employee } from "@/types/screens/employees/componentDataType";
+import { Type_employee_details_data } from "@/types/screens/employees/employeeDetails"
+
+
+export const input_default_state_add_edit_employee: Type_states_add_edit_employee = {
+    address: '',
+    avatar: '',
+    dateOfBirth: Math.floor(new Date().getTime() / 1000),
+    department: '',
+    designation: '',
+    email: '',
+    employeeId: '',
+    employeeType: 'FULL_TIME',
+    facebookId: '',
+    firstName: '',
+    gender: '',
+    joiningDate: Math.floor(new Date().getTime() / 1000),
+    lastName: '',
+    level: '',
+    nationality: '',
+    officeLocation: '',
+    phone: '',
+    truvelaId: '',
+    username: '',
+    zaloId: '',
+}
+
+
+
 
 export const employee_details_personal_information_data: Type_employee_details_data[] = [
     {

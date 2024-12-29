@@ -16,12 +16,13 @@ import { Separator } from '@/components/ui/separator'
 import { Type_states_add_edit_employee } from '@/types/screens/employees/componentDataType'
 import TabHeaders from '@/components/TabHeaders'
 import InputControl from '@/components/InputControl'
-import { tabs_add_edit_employee } from '@/data/screens/employees'
-import { employee_details_account_access_data, employee_details_documents_data, employee_details_personal_information_data, employee_details_professional_information_data } from '@/data/screens/employeeDetails'
-import { vertical_util_tab_employee } from '@/data/componentData'
+import { tabs_add_edit_employee } from '@/data/screens/employess/componentData'
+import { employee_details_account_access_data, employee_details_documents_data, employee_details_professional_information_data } from '@/data/screens/employess/employees'
+import { vertical_util_tab_employee } from '@/data/screens/employess/componentData'
 import VerticalUtilTab from '@/components/Tabs/VerticalUtilTab'
+import { employee_details_personal_information_data } from '@/data/screens/employess/employees'
 
-export const Employee_details_topSection_left_breadcrumb = () => {
+export const Top_Section_Left_Employee_details_breadcrumb = () => {
     const { employeeId } = useParams()
 
     return (

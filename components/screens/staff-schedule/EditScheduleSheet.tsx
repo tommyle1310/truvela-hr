@@ -16,13 +16,13 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { vertical_util_tab_update_staff_schedule } from "@/data/componentData"
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { format } from "date-fns"
 import { useState } from "react"
 import { RequestedAvailabilityTable } from "./RequestedAvailabilityTable"
-import { staff_schedule_EmployeeList_item } from "@/data/screens/staff-schedule"
+import { arr_staff_schedule_employee_list } from "@/data/screens/staff-schedule/staff-schedule"
+import { vertical_util_tab_update_staff_schedule } from "@/data/screens/staff-schedule/componentData"
 
 export function EditScheduleSheet({ date }: { date: number }) {
     const [selectedUtilTab, setSelectedUtilTab] = useState<string>('')
@@ -50,7 +50,7 @@ export function EditScheduleSheet({ date }: { date: number }) {
                         {vertical_util_tab_update_staff_schedule.map(item => (
                             <Button onClick={() => {
                                 item.onClick && item.onClick(() => setIsModalRequestAvailabilityOpen(!isModalRequestAvailabilityOpen))
-                            }} variant={'outline'}>{item.title}</Button>
+                            }} className="border-indigo-400 hover:bg-indigo-100" variant={'outline'}>{item.title}</Button>
                         ))}
                     </div>
                     <div className="w-full flex flex-col gap-4 col-span-9">
@@ -58,9 +58,9 @@ export function EditScheduleSheet({ date }: { date: number }) {
                             <div key={index} className="rounded-md border shadow-md p-4 flex flex-col gap-2">
                                 <strong>{item}</strong>
                                 {['Morning', 'Afternoon', 'Evening'].map((item, index) => (
-                                    <div className="flex flex-col gap-1">
+                                    <div key={index} className="flex flex-col gap-1">
                                         {item} (10:00 AM - 04:00 PM)
-                                        <MultiSelect data={staff_schedule_EmployeeList_item.map(item => ({ label: item.name, value: item.id }))} />
+                                        <MultiSelect data={arr_staff_schedule_employee_list.map(item => ({ label: item.name, value: item.id }))} />
                                     </div>
                                 ))}
                             </div>

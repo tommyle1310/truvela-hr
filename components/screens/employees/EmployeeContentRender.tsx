@@ -19,24 +19,24 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { tabs_add_edit_employee } from '@/data/screens/employees'
-import { attendanceReviewData } from '@/data/screens/employees'
-import { Type_states_add_edit_employee, TypeEmployeeContent } from '@/types/screens/employees/componentDataType'
-import TabAddEditEmployeeContentRender from '../../Tabs/TabContentHorizontalRender'
-import Link from 'next/link'
+import { tabs_add_edit_employee } from '@/data/screens/employess/componentData'
+import { Type_states_add_edit_employee, Type_state_view_add_edit_employee_content } from '@/types/screens/employees/componentDataType'
 import { useRouter } from 'next/navigation'
-import TabHorizontalContentRender from '../../Tabs/TabContentHorizontalRender'
+import TabHorizontalContentRender from './TabContentHorizontalRender'
+import { table_attendance } from '@/data/screens/attendance/attendance'
 
 
 export const EmployeeContentRender = ({
     type,
     switchContentRender
 }: {
-    type: TypeEmployeeContent;  // The state passed down from parent
-    switchContentRender: React.Dispatch<React.SetStateAction<TypeEmployeeContent>>;  // The function to change the state in parent
+    type: Type_state_view_add_edit_employee_content;  // The state passed down from parent
+    switchContentRender: React.Dispatch<React.SetStateAction<Type_state_view_add_edit_employee_content>>;  // The function to change the state in parent
 }) => {
     const router = useRouter(); // Get the router instance
     switch (type) {
+
+        // state default (ALL EMPLOYEE)
         case 'ALL_EMPLOYEE':
             return (
                 <div className="border p-4 rounded-lg flex flex-col gap-4 shadow-md">
@@ -70,7 +70,7 @@ export const EmployeeContentRender = ({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {attendanceReviewData.map((item) => (
+                            {table_attendance.map((item) => (
                                 <TableRow key={item.id}>
                                     <TableCell onClick={() => router.push(`/employees/${item.id}`)} className="cursor-pointer hover hover:bg-gray-100 font-medium w-56 flex items-center gap-1">
                                         <Avatar >

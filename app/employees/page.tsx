@@ -1,14 +1,14 @@
 'use client'
 import React, { useState } from 'react'
 
-import { TypeEmployeeContent } from '@/types/screens/employees/componentDataType'
+import { Type_state_view_add_edit_employee_content } from '@/types/screens/employees/componentDataType'
 import EmployeeContentRender from '@/components/screens/employees/EmployeeContentRender'
 
 
 
 
 const page = () => {
-    const [employeeContentState, setEmployeeContentState] = useState<TypeEmployeeContent>('ALL_EMPLOYEE')
+    const [employeeContentState, setEmployeeContentState] = useState<Type_state_view_add_edit_employee_content>('ALL_EMPLOYEE')
     return (
         <div className='flex flex-col gap-8'>
             <EmployeeContentRender

@@ -10,7 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { table_staff_schedule_monthly, Type_departments_enum } from "@/data/screens/staff-schedule";
+import { table_staff_schedule_monthly, Type_departments_enum } from "@/data/screens/staff-schedule/staff-schedule";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

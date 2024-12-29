@@ -1,6 +1,6 @@
 import { Type_all_department_members } from "@/types/screens/departments/departments";
 
-export const all_departments_members: Type_all_department_members = [
+export const cards_all_department_members: Type_all_department_members = [
     {
         id: 1,
         departmentTitle: 'Therapist',

@@ -1,54 +1,7 @@
-import { Enum_ApprovalStatus, Enum_Department, Enum_Level, Enum_Shift, Type_Departments } from "@/types/enums";
+import { Enum_ApprovalStatus, Enum_Department, Enum_Level, Enum_Shift } from "@/types/enums";
+import { Type_employee_shift_request, Type_staff_schedule_daily, Type_staff_schedule_employee_list } from "@/types/screens/staff-schedule/staff-schedule";
 
-
-export interface EmployeeShiftRequest {
-    avatar: string;          // URL or path to the employee's avatar image
-    name: string;            // Employee's full name
-    id: string;              // Employee's unique ID
-    level: Enum_Level;        // Employee's position (e.g., Therapist, Admin, etc.)
-    shift: Enum_Shift;           // Shift type (e.g., Morning, Afternoon, Evening)
-    department: Enum_Department;           // Shift type (e.g., Morning, Afternoon, Evening)
-    job: string,
-    requestDate: number;     // Date the request was made (e.g., "28/12/2024")
-    approvalStatus: Enum_ApprovalStatus;  // Status of the request (Approved, Pending, Rejected)
-    notes: string;           // Additional notes regarding the request
-    orderedByClient: boolean; // Whether the request was ordered by a client (true/false)
-}
-
-export interface Staff_schedule_daily {
-    date: number,
-    morning_employees: {
-        id: number,
-        name: string,
-        avatar: string,
-        department: Type_Departments
-    }[],
-    afternoon_employees: {
-        id: number,
-        name: string,
-        avatar: string,
-        department: Type_Departments
-    }[],
-    evening_employees: {
-        id: number,
-        name: string,
-        avatar: string,
-        department: Type_Departments
-    }[],
-}
-
-export type Staff_schedule_EmployeeList_item = {
-    id: string;            // Unique employee ID
-    name: string;          // Employee's name
-    department: Enum_Department;  // Department using Enum_Department
-    level: Enum_Level;         // Level using Enum_Level
-    job: string;           // Job role
-    avatar: string;        // URL for employee's avatar image
-};
-
-
-
-export const table_staff_schedule_monthly: Staff_schedule_daily[] = [
+export const table_staff_schedule_monthly: Type_staff_schedule_daily[] = [
     {
         date: 1733011200, // 01/12/2024 00:00:00
         morning_employees: [
@@ -702,8 +655,7 @@ export const table_staff_schedule_monthly: Staff_schedule_daily[] = [
     },
 
 ];
-
-export const staff_schedule_EmployeeList_item: Staff_schedule_EmployeeList_item[] = [
+export const arr_staff_schedule_employee_list: Type_staff_schedule_employee_list = [
     {
         id: '001',
         name: 'John Doe',
@@ -786,224 +738,220 @@ export const staff_schedule_EmployeeList_item: Staff_schedule_EmployeeList_item[
     }
 ];
 
+export const table_requested_availability: Type_employee_shift_request[] = [{
+    avatar: 'https://i.pravatar.cc/150?img=1',
+    name: 'John Doe',
+    id: '12345',
+    level: Enum_Level.SENIOR,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'No issues',
+    orderedByClient: true,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=2',
+    name: 'Jane Smith',
+    id: '67890',
+    level: Enum_Level.JUNIOR,
+    shift: Enum_Shift.AFTERNOON,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.PENDING,
+    notes: 'Needs confirmation',
+    orderedByClient: false,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=3',
+    name: 'Bob Brown',
+    id: '11223',
+    level: Enum_Level.LEAD,
+    shift: Enum_Shift.EVENING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.REJECTED,
+    notes: 'Unavailable',
+    orderedByClient: true,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=4',
+    name: 'Alice Green',
+    id: '33445',
+    level: Enum_Level.ELITE,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Confirmed by manager',
+    orderedByClient: false,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=5',
+    name: 'Michael Lee',
+    id: '44556',
+    level: Enum_Level.INTERMEDIATE,
+    shift: Enum_Shift.AFTERNOON,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.PENDING,
+    notes: 'Needs confirmation',
+    orderedByClient: true,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=6',
+    name: 'Emily Davis',
+    id: '56789',
+    level: Enum_Level.SENIOR,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Available for the shift',
+    orderedByClient: false,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=7',
+    name: 'Chris Williams',
+    id: '67823',
+    level: Enum_Level.JUNIOR,
+    shift: Enum_Shift.EVENING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.REJECTED,
+    notes: 'Shift not needed',
+    orderedByClient: false,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=8',
+    name: 'Sophia Miller',
+    id: '78901',
+    level: Enum_Level.LEAD,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Shift confirmed',
+    orderedByClient: true,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=9',
+    name: 'Liam Martinez',
+    id: '89012',
+    level: Enum_Level.ELITE,
+    shift: Enum_Shift.AFTERNOON,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.PENDING,
+    notes: 'Awaiting final approval',
+    orderedByClient: false,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=10',
+    name: 'Olivia Johnson',
+    id: '90123',
+    level: Enum_Level.INTERMEDIATE,
+    shift: Enum_Shift.EVENING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Confirmed by manager',
+    orderedByClient: true,
+    job: 'Therapist',
+    department: Enum_Department.THERAPIST,
+},
 
+// 2 Front Desk
+{
+    avatar: 'https://i.pravatar.cc/150?img=11',
+    name: 'David Wilson',
+    id: '123456',
+    level: Enum_Level.JUNIOR,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.PENDING,
+    notes: 'Awaiting confirmation',
+    orderedByClient: false,
+    job: 'Front Desk',
+    department: Enum_Department.FRONTDESK,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=12',
+    name: 'Sarah Taylor',
+    id: '789101',
+    level: Enum_Level.SENIOR,
+    shift: Enum_Shift.AFTERNOON,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Shift confirmed',
+    orderedByClient: true,
+    job: 'Front Desk',
+    department: Enum_Department.FRONTDESK,
+},
 
-export const table_requested_availability: EmployeeShiftRequest[] = [
-    // 10 Therapists
-    {
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        name: 'John Doe',
-        id: '12345',
-        level: Enum_Level.SENIOR,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'No issues',
-        orderedByClient: true,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=2',
-        name: 'Jane Smith',
-        id: '67890',
-        level: Enum_Level.JUNIOR,
-        shift: Enum_Shift.AFTERNOON,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.PENDING,
-        notes: 'Needs confirmation',
-        orderedByClient: false,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=3',
-        name: 'Bob Brown',
-        id: '11223',
-        level: Enum_Level.LEAD,
-        shift: Enum_Shift.EVENING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.REJECTED,
-        notes: 'Unavailable',
-        orderedByClient: true,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=4',
-        name: 'Alice Green',
-        id: '33445',
-        level: Enum_Level.ELITE,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Confirmed by manager',
-        orderedByClient: false,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=5',
-        name: 'Michael Lee',
-        id: '44556',
-        level: Enum_Level.INTERMEDIATE,
-        shift: Enum_Shift.AFTERNOON,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.PENDING,
-        notes: 'Needs confirmation',
-        orderedByClient: true,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=6',
-        name: 'Emily Davis',
-        id: '56789',
-        level: Enum_Level.SENIOR,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Available for the shift',
-        orderedByClient: false,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=7',
-        name: 'Chris Williams',
-        id: '67823',
-        level: Enum_Level.JUNIOR,
-        shift: Enum_Shift.EVENING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.REJECTED,
-        notes: 'Shift not needed',
-        orderedByClient: false,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=8',
-        name: 'Sophia Miller',
-        id: '78901',
-        level: Enum_Level.LEAD,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Shift confirmed',
-        orderedByClient: true,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=9',
-        name: 'Liam Martinez',
-        id: '89012',
-        level: Enum_Level.ELITE,
-        shift: Enum_Shift.AFTERNOON,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.PENDING,
-        notes: 'Awaiting final approval',
-        orderedByClient: false,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=10',
-        name: 'Olivia Johnson',
-        id: '90123',
-        level: Enum_Level.INTERMEDIATE,
-        shift: Enum_Shift.EVENING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Confirmed by manager',
-        orderedByClient: true,
-        job: 'Therapist',
-        department: Enum_Department.THERAPIST,
-    },
+// 3 Marketers
+{
+    avatar: 'https://i.pravatar.cc/150?img=13',
+    name: 'James Anderson',
+    id: '334455',
+    level: Enum_Level.SENIOR,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Shift confirmed',
+    orderedByClient: true,
+    job: 'Marketer',
+    department: Enum_Department.MARKETING,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=14',
+    name: 'Emma Thomas',
+    id: '556677',
+    level: Enum_Level.SENIOR,
+    shift: Enum_Shift.AFTERNOON,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.PENDING,
+    notes: 'Awaiting confirmation',
+    orderedByClient: false,
+    job: 'Marketer',
+    department: Enum_Department.MARKETING,
+},
+{
+    avatar: 'https://i.pravatar.cc/150?img=15',
+    name: 'Oliver Lee',
+    id: '778899',
+    level: Enum_Level.JUNIOR,
+    shift: Enum_Shift.EVENING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.REJECTED,
+    notes: 'Not available for shift',
+    orderedByClient: true,
+    job: 'Marketer',
+    department: Enum_Department.MARKETING,
+},
 
-    // 2 Front Desk
-    {
-        avatar: 'https://i.pravatar.cc/150?img=11',
-        name: 'David Wilson',
-        id: '123456',
-        level: Enum_Level.JUNIOR,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.PENDING,
-        notes: 'Awaiting confirmation',
-        orderedByClient: false,
-        job: 'Front Desk',
-        department: Enum_Department.FRONTDESK,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=12',
-        name: 'Sarah Taylor',
-        id: '789101',
-        level: Enum_Level.SENIOR,
-        shift: Enum_Shift.AFTERNOON,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Shift confirmed',
-        orderedByClient: true,
-        job: 'Front Desk',
-        department: Enum_Department.FRONTDESK,
-    },
-
-    // 3 Marketers
-    {
-        avatar: 'https://i.pravatar.cc/150?img=13',
-        name: 'James Anderson',
-        id: '334455',
-        level: Enum_Level.SENIOR,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Shift confirmed',
-        orderedByClient: true,
-        job: 'Marketer',
-        department: Enum_Department.MARKETING,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=14',
-        name: 'Emma Thomas',
-        id: '556677',
-        level: Enum_Level.SENIOR,
-        shift: Enum_Shift.AFTERNOON,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.PENDING,
-        notes: 'Awaiting confirmation',
-        orderedByClient: false,
-        job: 'Marketer',
-        department: Enum_Department.MARKETING,
-    },
-    {
-        avatar: 'https://i.pravatar.cc/150?img=15',
-        name: 'Oliver Lee',
-        id: '778899',
-        level: Enum_Level.JUNIOR,
-        shift: Enum_Shift.EVENING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.REJECTED,
-        notes: 'Not available for shift',
-        orderedByClient: true,
-        job: 'Marketer',
-        department: Enum_Department.MARKETING,
-    },
-
-    // 1 Admin
-    {
-        avatar: 'https://i.pravatar.cc/150?img=16',
-        name: 'Sophia Harris',
-        id: '998877',
-        level: Enum_Level.ELITE,
-        shift: Enum_Shift.MORNING,
-        requestDate: 1735344000,
-        approvalStatus: Enum_ApprovalStatus.APPROVED,
-        notes: 'Confirmed by manager',
-        orderedByClient: true,
-        job: 'Admin',
-        department: Enum_Department.ADMIN,
-    },
+// 1 Admin
+{
+    avatar: 'https://i.pravatar.cc/150?img=16',
+    name: 'Sophia Harris',
+    id: '998877',
+    level: Enum_Level.ELITE,
+    shift: Enum_Shift.MORNING,
+    requestDate: 1735344000,
+    approvalStatus: Enum_ApprovalStatus.APPROVED,
+    notes: 'Confirmed by manager',
+    orderedByClient: true,
+    job: 'Admin',
+    department: Enum_Department.ADMIN,
+},
 ];
 
 

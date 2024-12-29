@@ -1,12 +1,10 @@
 'use client'
 import SearchInput from '@/components/SearchInput'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -20,9 +18,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import React, { useState } from 'react'
-import { arr_candidate_status, candidatesTableData, Type_candidate_status } from '@/data/screens/candidates'
+import { arr_candidate_status, table_candidates, Type_candidate_status } from '@/data/screens/candidates/candidates'
 import { format } from 'date-fns'
-import { Button } from '@/components/ui/button'
 
 const RenderCandidateStatus = ({ type }: { type: Type_candidate_status }) => {
     switch (type) {
@@ -81,8 +78,8 @@ const page = () => {
                     </TableHeader>
                     <TableBody>
                         {selectedCandidateStatus === 'ALL' ? (
-                            candidatesTableData.map((item) => (
-                                <TableRow key={item.id} className="">
+                            table_candidates.map((item) => (
+                                <TableRow key={item.id}>
                                     <TableCell className="font-medium w-56 flex items-center gap-1">
                                         <Avatar>
                                             <AvatarImage src={item.avatar} />
@@ -90,23 +87,23 @@ const page = () => {
                                         </Avatar>
                                         <strong>{item.name}</strong>
                                     </TableCell>
-                                    <TableCell className="">{item.appliedFor}</TableCell>
-                                    <TableCell className="">{format(new Date(item.appliedDate * 1000), "PPP")}</TableCell>
-                                    <TableCell className="">
+                                    <TableCell>{item.appliedFor}</TableCell>
+                                    <TableCell>{format(new Date(item.appliedDate * 1000), "PPP")}</TableCell>
+                                    <TableCell>
                                         <div className="flex flex-col">
                                             <p>email: {item.contact.phone}</p>
                                             <p>phone: {item.contact.email}</p>
                                         </div>
                                     </TableCell>
 
-                                    <TableCell className="">
+                                    <TableCell>
                                         <RenderCandidateStatus type={item.status} />
                                     </TableCell>
                                 </TableRow>
                             ))
                         ) : (
-                            candidatesTableData.filter(item => item.status === selectedCandidateStatus).map((item) => (
-                                <TableRow key={item.id} className="">
+                            table_candidates.filter(item => item.status === selectedCandidateStatus).map((item) => (
+                                <TableRow key={item.id}>
                                     <TableCell className="font-medium w-56 flex items-center gap-1">
                                         <Avatar>
                                             <AvatarImage src={item.avatar} />
@@ -114,16 +111,16 @@ const page = () => {
                                         </Avatar>
                                         <strong>{item.name}</strong>
                                     </TableCell>
-                                    <TableCell className="">{item.appliedFor}</TableCell>
-                                    <TableCell className="">{format(new Date(item.appliedDate * 1000), "PPP")}</TableCell>
-                                    <TableCell className="">
+                                    <TableCell>{item.appliedFor}</TableCell>
+                                    <TableCell>{format(new Date(item.appliedDate * 1000), "PPP")}</TableCell>
+                                    <TableCell>
                                         <div className="flex flex-col">
                                             <p>email: {item.contact.phone}</p>
                                             <p>phone: {item.contact.email}</p>
                                         </div>
                                     </TableCell>
 
-                                    <TableCell className="">
+                                    <TableCell>
                                         <RenderCandidateStatus type={item.status} />
                                     </TableCell>
                                 </TableRow>

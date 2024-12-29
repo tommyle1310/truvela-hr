@@ -1,7 +1,14 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons"
 
-export type Type_vertical_util_tab = {
-    id: number,
+export type Type_tab_header = {
+    id: number | string,
     title: string,
-    icon: IconDefinition
+    icon?: IconDefinition,
+    onClick?: (() => void) | ((callback: () => void) => void)
 }
+
+
+export type Type_dropdown = {
+    label: string,
+    value: string
+}[]

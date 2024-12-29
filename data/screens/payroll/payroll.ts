@@ -1,7 +1,7 @@
 import { Enum_Level } from "@/types/enums";
 import { faChartLine, faDollarSign, faFileInvoiceDollar, faGift, faMinusCircle, faUsers, IconDefinition } from "@fortawesome/free-solid-svg-icons"
 
-export const payroll_dashboard_cards: {
+export const cards_payroll_dashboard: {
     id: number;
     title: number | string;
     subtitle: string;
@@ -50,8 +50,7 @@ export const payroll_dashboard_cards: {
 
 
 
-
-export const payrollTableThisMonthLogData: {
+export const table_payroll_this_month_log: {
     id: number,
     departmentName: string,
     tableSalaryDefinition: {
@@ -290,7 +289,7 @@ export const payrollTableThisMonthLogData: {
             ]
         }
     ];
-export const payrollTableSalaryDefinitionData: {
+export const table_payroll_salary_definition: {
     id: number,
     departmentName: string,
     tableSalaryDefinition: {
@@ -529,7 +528,7 @@ export const payrollTableSalaryDefinitionData: {
             ]
         }
     ];
-export const payrollTableTaxDeductionsData: {
+export const table_payroll_tax_deductions: {
     id: number,
     taxType: string,
     taxAmount: number,
@@ -572,7 +571,7 @@ export const payrollTableTaxDeductionsData: {
             effectivePeriod: 1712112000,
         }
     ];
-export const payrollTableEmployeePayrollLogsData: {
+export const table_payroll_employee_payroll_log: {
     id: number,
     employeeName: string,
     changeType: string,  // Changed to string (e.g., 'Salary Increase', 'Deduction Update')

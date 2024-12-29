@@ -1,61 +1,15 @@
+import {
+    faIdCard, faUnlock, faUserTie, IconDefinition, faCalendarCheck,
+    faRectangleList,
+    faUser, faTarp
+} from "@fortawesome/free-solid-svg-icons";
+import { countries } from "@/data/countries";
 import { Type_input_form_add_edit_employee, Type_states_add_edit_employee } from "@/types/screens/employees/componentDataType";
-import { faIdCard, faUnlock, faUser, faUserTie, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { countries } from "../countries";
+import { Type_tab_header } from "@/types/componentType";
 
 
-export const attendanceReviewData: { id: number, email: string, name: string, isFulltime: boolean, activePoint: number, workLocation: string, avatar: string, clockIn: string, checkIn: string, designation: string, status: 'LATE' | 'EARLY' | 'ON_TIME' }[] = [
-    {
-        id: 1,
-        name: "Tommy Teo",
-        avatar: "https://github.com/shadcn.png",
-        clockIn: '08:55 AM',
-        designation: 'Staff',
-        checkIn: '09:00 AM',
-        status: 'LATE',
-        email: 'tommyle1310@gmail.com',
-        isFulltime: true,
-        activePoint: 20,
-        workLocation: 'Truvela'
-    },
-    {
-        id: 2,
-        name: "Alice Brown",
-        avatar: "https://github.com/alicebrown.png",
-        clockIn: '08:59 AM',
-        designation: 'Staff',
-        checkIn: '09:00 AM',
-        status: 'ON_TIME',
-        email: 'alice0@gmail.com',
-        isFulltime: false,
-        activePoint: 90,
-        workLocation: 'Bremare'
-    },
-];
 
-export const employeeInputsDefault: Type_states_add_edit_employee = {
-    address: '',
-    avatar: '',
-    dateOfBirth: Math.floor(new Date().getTime() / 1000),
-    department: '',
-    designation: '',
-    email: '',
-    employeeId: '',
-    employeeType: 'FULL_TIME',
-    facebookId: '',
-    firstName: '',
-    gender: '',
-    joiningDate: Math.floor(new Date().getTime() / 1000),
-    lastName: '',
-    level: '',
-    nationality: '',
-    officeLocation: '',
-    phone: '',
-    truvelaId: '',
-    username: '',
-    zaloId: '',
-}
-
-export const tabs_add_edit_employee: { id: number, icon: IconDefinition, title: string }[] = [
+export const tabs_add_edit_employee: Type_tab_header[] = [
     {
         id: 1,
         icon: faUser,
@@ -192,5 +146,28 @@ export const input_form_professional_information_add_employee: Type_input_form_a
         label: 'Office Location',
         dropdownValue: [{ value: 'SPA_1', label: 'Brelex' }, { value: 'SPA_2', label: 'Bremare' }],
         placeholder: 'Select Office Location'
+    },
+]
+
+export const vertical_util_tab_employee: Type_tab_header[] = [
+    {
+        id: 1,
+        title: 'Profile',
+        icon: faUser,
+    },
+    {
+        id: 2,
+        title: 'Attendance',
+        icon: faCalendarCheck,
+    },
+    {
+        id: 3,
+        title: 'Projects',
+        icon: faTarp,
+    },
+    {
+        id: 4,
+        title: 'Leave',
+        icon: faRectangleList,
     },
 ]

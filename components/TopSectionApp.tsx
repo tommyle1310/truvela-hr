@@ -14,6 +14,7 @@ import { Top_Section_Left_Employee_details_breadcrumb } from '@/app/employees/[e
 import { Top_Section_Left_Department_details_breadcrumb } from '@/app/departments/[departmentId]/page';
 import IconWithBg from './IconWithBg';
 import { Button } from './ui/button';
+import { Top_Section_Left_Employee_payroll_update_breadcrumb } from '@/app/payroll/[employeeId]/page';
 
 
 
@@ -26,6 +27,9 @@ const RenderTopLeft = ({ pathname }: { pathname: string }) => {
     }
     if (pathname.startsWith('/departments/')) {
         return <Top_Section_Left_Department_details_breadcrumb />
+    }
+    if (pathname.startsWith('/payroll/')) {
+        return <Top_Section_Left_Employee_payroll_update_breadcrumb />
     }
 
     // Handle the exact '/employees' path

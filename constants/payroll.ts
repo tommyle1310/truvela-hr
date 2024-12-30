@@ -1,0 +1,1 @@
+export const HOURS_RATE = 50

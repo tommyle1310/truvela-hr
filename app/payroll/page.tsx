@@ -6,7 +6,7 @@ import {
     table_payroll_tax_deductions,
     table_payroll_employee_payroll_log
 } from '@/data/screens/payroll/payroll'
-import { faCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUp, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import {
@@ -18,6 +18,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import TabHeaders from '@/components/TabHeaders'
 import { DatePicker } from '@/components/DatePicker'
@@ -26,11 +31,15 @@ import { Button } from '@/components/ui/button'
 import VerticalUtilTab from '@/components/Tabs/VerticalUtilTab'
 import DrawerPayrollDashboard from '@/components/screens/payroll/DrawerPayrollDashboard'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
+
 
 
 const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }: {
     type: string, currentProgress: string, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>
 }) => {
+    const router = useRouter(); // Get the router instance
+
     switch (type) {
         case vertical_util_tab_payroll[0].title:
             return (
@@ -60,6 +69,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                                 <TableHead className=''>Salary Per Month</TableHead>
                                 <TableHead className=''>Deduction</TableHead>
                                 <TableHead className=''>Status</TableHead>
+                                <TableHead className=''>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -75,9 +85,20 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                                     <TableCell className=" ">${item.ctc}</TableCell>
                                     <TableCell className=" ">${item.salaryPerMonth}</TableCell>
                                     <TableCell className=" ">${item.deduction}</TableCell>
-                                    <TableCell className="text-center flex">
+                                    <TableCell className="text-center">
                                         <div className={`px-2 py-1  font-bold ${item.status === 'COMPLETED' ? 'bg-green-100 text-green-500' : 'bg-yellow-100 text-yellow-500'} flex rounded-sm `}>
                                             {item.status}</div></TableCell>
+                                    <TableCell className=" text-center">
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <FontAwesomeIcon icon={faEllipsis} />
+                                            </PopoverTrigger>
+                                            <PopoverContent className='flex flex-col p-0 max-w-[120px]'>
+                                                <Button variant={'ghost'} onClick={() => router.push(`/payroll/${item.id}`)}>Update payroll</Button>
+                                            </PopoverContent>
+                                        </Popover>
+                                    </TableCell>
+
                                 </TableRow>
                             ))}
                         </TableBody>

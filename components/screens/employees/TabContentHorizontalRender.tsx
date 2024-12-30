@@ -91,7 +91,7 @@ const TabProgressContentRender = ({ selectedDate, setSelectedDate, type }: { typ
     }
 }
 
-const TabHorizontalContentRender = ({ listData, currentProgress, setCurrentProgress, handleCancel, selectedDate, setSelectedDate, handleNextStep }: { listData: { id: number, icon: IconDefinition, title: string }[], handleNextStep?: () => void, currentProgress: string, handleCancel?: () => void, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>, selectedDate?: number, setSelectedDate?: React.Dispatch<React.SetStateAction<number>> }) => {
+const TabHorizontalContentRender = ({ listData, currentProgress, setCurrentProgress, handleCancel, selectedDate, setSelectedDate, handleNextStep }: { listData: { id: number | string, icon?: IconDefinition, title: string }[], handleNextStep?: () => void, currentProgress: string, handleCancel?: () => void, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>, selectedDate?: number, setSelectedDate?: React.Dispatch<React.SetStateAction<number>> }) => {
     return (
         <div className="border p-4 rounded-lg flex flex-col gap-4 shadow-md">
             <div className="flex items-center">

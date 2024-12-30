@@ -7,9 +7,9 @@ import { faBullhorn, faSuitcase, faUserLock, faUserTie } from '@fortawesome/free
 const page = () => {
     return (
         <div className='flex flex-col gap-8'>
-            {[{ id: 1, title: 'Active Jobs' }, { id: 2, title: 'Inactive Jobs' }].map(item => (
+            {[{ id: 1, title: 'Active Jobs' }, { id: 2, title: 'Inactive Jobs' }].map((item) => (
                 <div key={item.id} className="p-4 rounded-md shadow-md border flex flex-col gap-4">
-                    <h5>{item.title}</h5>
+                    <h5 className='flex items-center gap-2'>{item.title} <div className={`w-2 h-2 ${item.title === 'Active Jobs' ? 'bg-green-500' : 'bg-yellow-500'} rounded-full`}></div></h5>
                     <div className="grid grid-cols-3 gap-4">
                         {[{ id: 1, title: 'Therapist', icon: faSuitcase },
                         { id: 2, title: 'Receptionist', icon: faUserTie },

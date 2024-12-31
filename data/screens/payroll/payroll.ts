@@ -532,42 +532,36 @@ export const table_payroll_tax_deductions: {
     id: number,
     taxType: string,
     taxAmount: number,
-    totalDeduction: number,
     effectivePeriod: number,
 }[] = [
         {
             id: 1,
             taxType: 'VAT',  // Value Added Tax
             taxAmount: 1200,
-            totalDeduction: 1200,  // Total VAT deduction
             effectivePeriod: 1712112000,  // Indicates the month or period when VAT is applied
         },
         {
             id: 2,
             taxType: 'WHT',  // Withholding Tax
             taxAmount: 500,
-            totalDeduction: 500,
             effectivePeriod: 1712112000,
         },
         {
             id: 3,
             taxType: 'NHIS',  // National Health Insurance Scheme
             taxAmount: 300,
-            totalDeduction: 300,
             effectivePeriod: 1712112000,
         },
         {
             id: 4,
             taxType: 'VAT',
             taxAmount: 1500,
-            totalDeduction: 1500,
             effectivePeriod: 1712112000,
         },
         {
             id: 5,
             taxType: 'WHT',
             taxAmount: 750,
-            totalDeduction: 750,
             effectivePeriod: 1712112000,
         }
     ];

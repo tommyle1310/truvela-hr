@@ -6,7 +6,7 @@ import {
     table_payroll_tax_deductions,
     table_payroll_employee_payroll_log
 } from '@/data/screens/payroll/payroll'
-import { faCircleUp, faEllipsis } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUp, faEllipsis, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import {
@@ -193,14 +193,16 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                         <SearchInput />
                         <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
                     </div>
-                    <h5 className="text-lg font-bold p-2 my-0">Tax & Deductions</h5>
+                    <div className="text-lg font-bold my-0 flex items-center justify-between">
+                        <h5>Tax</h5>
+                        <Button className='bg-blue-500 hover:bg-blue-700'><FontAwesomeIcon icon={faPlusCircle} />Add</Button>
+                    </div>
                     <Table>
                         <TableCaption>A list of tax & deductions.</TableCaption>
                         <TableHeader>
                             <TableRow>
                                 <TableHead className=''>Tax Type</TableHead>
                                 <TableHead className=''>Tax Amount</TableHead>
-                                <TableHead className=''>Total Deductions</TableHead>
                                 <TableHead className=''>Effective Period</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -209,7 +211,70 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                                 <TableRow key={item.id} className="">
                                     <TableCell className=" ">{item.taxType}</TableCell>
                                     <TableCell className=" ">${item.taxAmount}</TableCell>
-                                    <TableCell className=" ">${item.totalDeduction}</TableCell>
+                                    <TableCell className=" ">{format(new Date(item.effectivePeriod * 1000), "PPP")}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            )
+        case vertical_util_tab_payroll[4].title:
+            return (
+                <div className="col-span-9 p-4 rounded-lg shadow-md border flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                        <SearchInput />
+                        <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
+                    </div>
+                    <div className="text-lg font-bold my-0 flex items-center justify-between">
+                        <h5>Bonuses</h5>
+                        <Button className='bg-blue-500 hover:bg-blue-700'><FontAwesomeIcon icon={faPlusCircle} />Add</Button>
+                    </div>
+                    <Table>
+                        <TableCaption>A list of bonuses.</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className=''>Tax Type</TableHead>
+                                <TableHead className=''>Tax Amount</TableHead>
+                                <TableHead className=''>Effective Period</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {table_payroll_tax_deductions.map((item) => (
+                                <TableRow key={item.id} className="">
+                                    <TableCell className=" ">{item.taxType}</TableCell>
+                                    <TableCell className=" ">${item.taxAmount}</TableCell>
+                                    <TableCell className=" ">{format(new Date(item.effectivePeriod * 1000), "PPP")}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            )
+        case vertical_util_tab_payroll[5].title:
+            return (
+                <div className="col-span-9 p-4 rounded-lg shadow-md border flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                        <SearchInput />
+                        <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
+                    </div>
+                    <div className="text-lg font-bold my-0 flex items-center justify-between">
+                        <h5>Deductions</h5>
+                        <Button className='bg-blue-500 hover:bg-blue-700'><FontAwesomeIcon icon={faPlusCircle} />Add</Button>
+                    </div>
+                    <Table>
+                        <TableCaption>A list of deductions.</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className=''>Tax Type</TableHead>
+                                <TableHead className=''>Tax Amount</TableHead>
+                                <TableHead className=''>Effective Period</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {table_payroll_tax_deductions.map((item) => (
+                                <TableRow key={item.id} className="">
+                                    <TableCell className=" ">{item.taxType}</TableCell>
+                                    <TableCell className=" ">${item.taxAmount}</TableCell>
                                     <TableCell className=" ">{format(new Date(item.effectivePeriod * 1000), "PPP")}</TableCell>
                                 </TableRow>
                             ))}

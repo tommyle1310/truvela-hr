@@ -38,7 +38,7 @@ export const Top_Section_Left_Employee_payroll_update_breadcrumb = () => {
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/employees">Payroll</BreadcrumbLink>
+                        <BreadcrumbLink href="/payroll">Payroll</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
@@ -190,100 +190,150 @@ const page = () => {
 
 
     return (
-        <div className='rounded-md shadow-md border overflow-hidden flex w-full'>
-            <div className="flex-grow p-4 flex flex-col">
-                <div className="flex flex-col">
-                    <div className="items-center flex gap-4">
-                        <p>Hourly Rate (1): </p>
-                        <strong className='text-green-600'>${20}/h</strong>
+        <div className="flex flex-col gap-8">
+            <div className="p-4 rounded-md shadow-md border flex flex-col gap-4">
+                <strong className=''>Employee Details</strong>
+                <div className="grid grid-cols-12 gap-8 ">
+                    {/* avatar */}
+                    <div className="col-span-1 aspect-square rounded-lg overflow-hidden">
+                        <img src="https://github.com/shadcn.png" alt="" />
                     </div>
-                    <Separator className='my-2' />
-                </div>
-                <div className="flex flex-col">
-                    <div className="items-center flex gap-4">
-                        <p>Hours Worked (2): </p>
-                        <strong className='text-violet-600'>{160}</strong>
+                    {/* name, id, department, role */}
+                    <div className="col-span-4 flex flex-col text-sm">
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-5'>Name: </p>
+                            <strong className='col-span-7'>John Doe</strong>
+                        </div>
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-5'>ID: </p>
+                            <strong className='col-span-7'>STF_10</strong>
+                        </div>
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-5'>Department: </p>
+                            <strong className='col-span-7'>Therapist</strong>
+                        </div>
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-5'>Role: </p>
+                            <strong className='col-span-7'>Lead</strong>
+                        </div>
                     </div>
-                    <Separator className='my-2' />
-                </div>
-                <div className="flex flex-col">
-                    <div className="items-center flex gap-4">
-                        <p>Overtime Earning (3): </p>
-                        <Popover>
-                            <PopoverTrigger>
-                                <strong className='text-green-600 underline'>${198.4}</strong>
-                            </PopoverTrigger>
-                            <PopoverContent className='flex w-[30rem] flex-col text-xs'>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Date</TableHead>
-                                            <TableHead className='text-center'>Overtime hours</TableHead>
-                                            <TableHead>Rate</TableHead>
-                                            <TableHead>Total Earnings</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {table_overtime.map(item => (
-                                            <TableRow key={item.id}>
-                                                <TableCell className="font-medium">{format(new Date(item.date * 1000), "PPP")}</TableCell>
-                                                <TableCell className='text-center'>{convertDecimalToTime(item.overtimeHours)}</TableCell>
-                                                <TableCell>${HOURS_RATE}</TableCell>
-                                                <TableCell className='text-green-600'>+${(item.overtimeHours * HOURS_RATE).toFixed(1)}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
 
-                            </PopoverContent>
-                        </Popover>
-
+                    {/* contact, phone, status */}
+                    <div className="col-span-4 flex flex-col text-sm">
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-3'>Contact: </p>
+                            <strong className='col-span-9'>john@example.com</strong>
+                        </div>
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-3'>Phone: </p>
+                            <strong className='col-span-9'>+84 707171164</strong>
+                        </div>
+                        <div className="grid grid-cols-12">
+                            <p className='col-span-3'>Status: </p>
+                            <strong className='col-span-9'>Full-time</strong>
+                        </div>
                     </div>
-                    <Separator className='my-2' />
                 </div>
             </div>
-            <div className="flex-grow p-4 flex flex-col">
-                <TablePopover
-                    title="Bonuses (4)"
-                    totalAmount={360}
-                    data={table_bonuses}
-                    amountField="bonus"
-                />
-                <TablePopover
-                    title="Reimbursements (5)"
-                    totalAmount={280}
-                    data={table_reimbursements}
-                    amountField="amount"
-                />
-                <TablePopover
-                    title="Benefits (6)"
-                    totalAmount={450}
-                    data={table_benefits}
-                    amountField="amount"
-                />
-            </div>
-            <div className="flex-grow p-4 flex flex-col">
-                <TablePopover
-                    title="Operation Deductions (7)"
-                    totalAmount={360}
-                    data={table_operation_deductions}
-                    isRedTotalAmount
-                    amountField="deduction"
-                />
-                <TablePopover
-                    title="Other Deductions (8)"
-                    totalAmount={60}
-                    data={table_other_deductions}
-                    isRedTotalAmount
-                    amountField="deduction"
-                />
-                <TablePopover
-                    title="Taxes (9)"
-                    totalAmount={0}
-                    data={table_taxes}
-                    isRedTotalAmount
-                    amountField="deduction"
-                />
+            <div className="flex flex-col rounded-md shadow-md border">
+                <strong className='px-4 mt-4'>Payroll Details</strong>
+                <div className=' overflow-hidden flex w-full'>
+                    <div className="flex-grow p-4 flex flex-col">
+                        <div className="flex flex-col">
+                            <div className="items-center flex gap-4">
+                                <p>Hourly Rate (1): </p>
+                                <strong className='text-green-600'>${20}/h</strong>
+                            </div>
+                            <Separator className='my-2' />
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="items-center flex gap-4">
+                                <p>Hours Worked (2): </p>
+                                <strong className='text-violet-600'>{160}</strong>
+                            </div>
+                            <Separator className='my-2' />
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="items-center flex gap-4">
+                                <p>Overtime Earning (3): </p>
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <strong className='text-green-600 underline'>${198.4}</strong>
+                                    </PopoverTrigger>
+                                    <PopoverContent className='flex w-[30rem] flex-col text-xs'>
+                                        <Table>
+                                            <TableHeader>
+                                                <TableRow>
+                                                    <TableHead>Date</TableHead>
+                                                    <TableHead className='text-center'>Overtime hours</TableHead>
+                                                    <TableHead>Rate</TableHead>
+                                                    <TableHead>Total Earnings</TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {table_overtime.map(item => (
+                                                    <TableRow key={item.id}>
+                                                        <TableCell className="font-medium">{format(new Date(item.date * 1000), "PPP")}</TableCell>
+                                                        <TableCell className='text-center'>{convertDecimalToTime(item.overtimeHours)}</TableCell>
+                                                        <TableCell>${HOURS_RATE}</TableCell>
+                                                        <TableCell className='text-green-600'>+${(item.overtimeHours * HOURS_RATE).toFixed(1)}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+
+                                    </PopoverContent>
+                                </Popover>
+
+                            </div>
+                            <Separator className='my-2' />
+                        </div>
+                    </div>
+                    <div className="flex-grow p-4 flex flex-col">
+                        <TablePopover
+                            title="Bonuses (4)"
+                            totalAmount={360}
+                            data={table_bonuses}
+                            amountField="bonus"
+                        />
+                        <TablePopover
+                            title="Reimbursements (5)"
+                            totalAmount={280}
+                            data={table_reimbursements}
+                            amountField="amount"
+                        />
+                        <TablePopover
+                            title="Benefits (6)"
+                            totalAmount={450}
+                            data={table_benefits}
+                            amountField="amount"
+                        />
+                    </div>
+                    <div className="flex-grow p-4 flex flex-col">
+                        <TablePopover
+                            title="Operation Deductions (7)"
+                            totalAmount={360}
+                            data={table_operation_deductions}
+                            isRedTotalAmount
+                            amountField="deduction"
+                        />
+                        <TablePopover
+                            title="Other Deductions (8)"
+                            totalAmount={60}
+                            data={table_other_deductions}
+                            isRedTotalAmount
+                            amountField="deduction"
+                        />
+                        <TablePopover
+                            title="Taxes (9)"
+                            totalAmount={0}
+                            data={table_taxes}
+                            isRedTotalAmount
+                            amountField="deduction"
+                        />
+                    </div>
+
+                </div>
             </div>
 
         </div>

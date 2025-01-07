@@ -24,12 +24,15 @@ import { Type_states_add_edit_employee, Type_state_view_add_edit_employee_conten
 import { useRouter } from 'next/navigation'
 import TabHorizontalContentRender from './TabContentHorizontalRender'
 import { table_attendance } from '@/data/screens/attendance/attendance'
+import { Props_Staff } from '@/types/screens/employees/employeeDetails'
 
 
 export const EmployeeContentRender = ({
+    data,
     type,
     switchContentRender
 }: {
+    data: Props_Staff[],
     type: Type_state_view_add_edit_employee_content;  // The state passed down from parent
     switchContentRender: React.Dispatch<React.SetStateAction<Type_state_view_add_edit_employee_content>>;  // The function to change the state in parent
 }) => {
@@ -62,7 +65,7 @@ export const EmployeeContentRender = ({
                             <TableRow>
                                 <TableHead className="w-[100px]">Employee Name</TableHead>
                                 <TableHead className='text-center'>Employee ID</TableHead>
-                                <TableHead className='text-center'>Designation</TableHead>
+                                <TableHead className='text-center'>Department</TableHead>
                                 <TableHead className='text-center'>Type</TableHead>
                                 <TableHead className='text-center'>Active Points</TableHead>
                                 <TableHead className='text-center'>Work Location</TableHead>
@@ -70,31 +73,31 @@ export const EmployeeContentRender = ({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {table_attendance.map((item) => (
+                            {data.map((item) => (
                                 <TableRow key={item.id}>
                                     <TableCell onClick={() => router.push(`/employees/${item.id}`)} className="cursor-pointer hover hover:bg-gray-100 font-medium w-56 flex items-center gap-1">
                                         <Avatar >
-                                            <AvatarImage src={item.avatar} />
-                                            <AvatarFallback>{item.name}</AvatarFallback>
+                                            <AvatarImage src={item.avatar.url} />
+                                            <AvatarFallback>{item.first_name}</AvatarFallback>
                                         </Avatar>
                                         <div className="flex flex-col">
-                                            <strong>{item.name}</strong>
+                                            <strong>{item.last_name} {item.first_name}</strong>
                                             <p className='text-gray-500 text-sm'>{item.email}</p>
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-center">{item.id}</TableCell>
-                                    <TableCell className="text-center">{item.designation}</TableCell>
+                                    <TableCell className="text-center">{item.department ? item.department.name : '-'}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.isFulltime ? (
+                                        {item.is_fulltime ? (
                                             <div className='p-default bg-violet-100 text-violet-500 rounded-sm text-center'>Full time</div>
                                         ) : (
                                             <div className='bg-white border p-default rounded-sm text-center text-violet-500'>Part time</div>
                                         )}
                                     </TableCell>
-                                    <TableCell className={`${item.activePoint > 70 ? 'text-green-400' : 'text-red-400'} font-bold text-center`}>
-                                        {item.activePoint}
+                                    <TableCell className={`${item.active_points > 70 ? 'text-green-400' : 'text-red-400'} font-bold text-center`}>
+                                        {item.active_points}
                                     </TableCell>
-                                    <TableCell className="text-center">{item.workLocation}</TableCell>
+                                    <TableCell className="text-center">{item.work_office ? item.work_office.name : '-'}</TableCell>
                                     <TableCell className="text-center">
                                         <Popover>
                                             <PopoverTrigger>

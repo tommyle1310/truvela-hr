@@ -204,6 +204,7 @@ const InputControl = ({
                 disabled={disabled}
                 id={label}
                 value={value}
+                onChange={() => { }}
                 defaultValue={defaultValue}
             />
         );

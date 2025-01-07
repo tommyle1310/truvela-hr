@@ -22,7 +22,7 @@ export type Props_Staff = {
     },
     first_name: string,
     last_name: string,
-    joining_date: string,
+    joining_date: number,
     email: string,
     phone: string,
     gender: string,

@@ -17,41 +17,18 @@ import { Type_states_add_edit_employee } from '@/types/screens/employees/compone
 import TabHeaders from '@/components/TabHeaders'
 import InputControl from '@/components/InputControl'
 import { tabs_add_edit_employee } from '@/data/screens/employess/componentData'
-import { employee_details_account_access_data, employee_details_documents_data, employee_details_professional_information_data } from '@/data/screens/employess/employees'
 import { vertical_util_tab_employee } from '@/data/screens/employess/componentData'
 import VerticalUtilTab from '@/components/Tabs/VerticalUtilTab'
-import { employee_details_personal_information_data } from '@/data/screens/employess/employees'
 import axiosInstance from '@/utils/axiosConfig'
 import { ApiResponse } from '@/types/api'
 import { Props_Staff, Type_employee_details_data } from '@/types/screens/employees/employeeDetails'
+import { state_default_staff_details } from '@/data/screens/employess/employees'
+import useStaffDetails from '@/hooks/staff/useFetchStaffDetails'
+import Spinner from '@/components/Spinner'
 
 export const Top_Section_Left_Employee_details_breadcrumb = () => {
     const { employeeId } = useParams()
-    const [staffDetails, setStaffDetails] = useState<Props_Staff>({
-        account_access: '',
-        address: '',
-        active_points: 0,
-        avatar: { url: '', key: 'string' },
-        created_at: 0,
-        updated_at: 0,
-        date_of_birth: 0,
-        department: null,
-        work_office: {
-            name: ''
-        },
-        first_name: '',
-        last_name: '',
-        joining_date: '',
-        email: '',
-        phone: '',
-        gender: 'Male',
-        job: null,
-        level: '',
-        status: '',
-        total_days_worked: '',
-        is_fulltime: false,
-        id: ''
-    })
+    const [staffDetails, setStaffDetails] = useState<Props_Staff>(state_default_staff_details)
     const [error, setError] = useState('')
     useEffect(() => {
         axiosInstance
@@ -90,14 +67,16 @@ export const Top_Section_Left_Employee_details_breadcrumb = () => {
 
 const TabAddEmployeeContentRender = ({
     data,
+    isLoading,
     selectedDate,
     setSelectedDate,
     type
 }: {
-    data: Props_Staff,
-    type: string,
-    selectedDate?: number,
-    setSelectedDate?: React.Dispatch<React.SetStateAction<number>>
+    data: Props_Staff;
+    isLoading: boolean;
+    type: string;
+    selectedDate?: number;
+    setSelectedDate?: React.Dispatch<React.SetStateAction<number>>;
 }) => {
     const [personalInformation, setPersonalInformation] = useState<Type_employee_details_data[]>([]);
     const [professionalInformation, setProfessionalInformation] = useState<Type_employee_details_data[]>([]);
@@ -105,7 +84,7 @@ const TabAddEmployeeContentRender = ({
     const [accountAccessData, setAccountAccessData] = useState<Type_employee_details_data[]>([]);
 
     useEffect(() => {
-        if (data) {
+        if (data && !isLoading) {
             // Personal Information
             const personalInfo = [
                 { id: 1, label: 'First Name', value: data.first_name || '-' },
@@ -115,23 +94,23 @@ const TabAddEmployeeContentRender = ({
                 { id: 5, label: 'Date of Birth', value: data.date_of_birth ? new Date(data.date_of_birth * 1000).toLocaleDateString() : '-' },
                 { id: 6, label: 'Gender', value: data.gender || '-' },
                 { id: 7, label: 'Nationality', value: 'Vietnam' }, // Static placeholder
-                { id: 8, label: 'Address', value: '102 Phan Van Teo, P.TTN, District 12, Saigon, Vietnam' } // Static placeholder
+                { id: 8, label: 'Address', value: data.address } // Static placeholder
             ];
             setPersonalInformation(personalInfo);
 
             // Professional Information
             const professionalInfo = [
-                { id: 1, label: 'Employee ID', value: data.job ? data.job.title : '-' }, // Using job as placeholder for Employee ID
-                { id: 2, label: 'Username', value: data.first_name || '-' }, // Placeholder
+                { id: 1, label: 'Employee ID', value: data.job ? data.job.title : '-' },
+                { id: 2, label: 'Username', value: data.first_name || '-' },
                 { id: 3, label: 'Employee Type', value: data.is_fulltime ? 'Full Time' : 'Part Time' },
                 { id: 4, label: 'Department', value: data.department ? data.department.name : '-' },
                 { id: 5, label: 'Designation', value: data.level || '-' },
-                { id: 6, label: 'Joining Date', value: data.joining_date ? data.joining_date : '-' }, // Convert timestamp to date string
+                { id: 6, label: 'Joining Date', value: data.joining_date ? new Date(data.joining_date * 1000).toLocaleDateString('en-US') : '-' },
                 { id: 7, label: 'Office Location', value: data.work_office ? data.work_office.name : '-' }
             ];
             setProfessionalInformation(professionalInfo);
 
-            // Documents Data (Static for now)
+            // Documents Data
             const documentsInfo = [
                 { id: 1, label: 'Appointment Letters', uploadFile: { filename: ['appointment_letter.pdf'] } },
                 { id: 2, label: 'Salary Slips', uploadFile: { filename: ['salary_slip_nov.pdf', 'salary_slip_dec.pdf'] } },
@@ -140,15 +119,18 @@ const TabAddEmployeeContentRender = ({
             ];
             setDocumentsData(documentsInfo);
 
-            // Account Access Data (Extracting from JSON string)
+            // Account Access Data
             const accountAccessInfo = [
                 { id: 1, label: 'Facebook ID', value: data.account_access ? JSON.parse(data.account_access)[0]?.facebook || '-' : '-' }
             ];
             setAccountAccessData(accountAccessInfo);
         }
-    }, [data]); // Effect will run whenever `data` changes
+    }, [data, isLoading]);
 
-    console.log('check dep', data?.department);
+    // Ensure correct rendering based on isLoading state
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     switch (type) {
         case tabs_add_edit_employee[0].title:
@@ -184,61 +166,21 @@ const TabAddEmployeeContentRender = ({
                 </div>
             );
         default:
-            return null;
+            return <Spinner />;
     }
 };
 
 
+
 const page = () => {
+    const [employeeInputs, setEmployeeInputs] = useState<Type_states_add_edit_employee>()
     const { employeeId } = useParams()
     const [currentProgress, setCurrentProgress] = useState<string>(tabs_add_edit_employee[0].title);
-    const [employeeInputs, setEmployeeInputs] = useState<Type_states_add_edit_employee>()
     const [selectedDate, setSelectedDate] = useState<number>(Math.floor(new Date().getTime() / 1000));
     const [selectedUtilTab, setSelectedUtilTab] = useState<string>(vertical_util_tab_employee[0].title)
 
-    const [staffDetails, setStaffDetails] = useState<Props_Staff>({
-        account_access: '',
-        address: '',
-        active_points: 0,
-        avatar: { url: '', key: 'string' },
-        created_at: 0,
-        updated_at: 0,
-        date_of_birth: 0,
-        department: null,
-        work_office: {
-            name: ''
-        },
-        first_name: '',
-        last_name: '',
-        joining_date: '',
-        email: '',
-        phone: '',
-        gender: 'Male',
-        job: null,
-        level: '',
-        status: '',
-        total_days_worked: '',
-        is_fulltime: false,
-        id: ''
-    })
-    const [error, setError] = useState('')
 
-    useEffect(() => {
-        axiosInstance
-            .get<ApiResponse>(`/staffs/${employeeId}`) // Get response typed as ApiResponse
-            .then((response) => {
-                if (response.data.EC === 0) {
-                    // setStaffDetails(response.data.data);  // Store the response data in state
-                    setStaffDetails(response.data.data)
-                } else {
-                    setError('Error fetching data: ' + response.data.EM);
-                }
-            })
-            .catch((err) => {
-                setError('Error fetching data');
-                console.error('Error fetching data:', err);
-            });
-    }, [employeeId])
+    const { staffDetails, isLoading, error, refetch } = useStaffDetails(employeeId as string);
 
     return (
         <div className='p-4 border rounded-lg shadow flex flex-col gap-4'>
@@ -264,7 +206,7 @@ const page = () => {
                             <TabHeaders currentProgress={currentProgress} icon={item.icon} title={item.title} id={item.id} setCurrentProgress={setCurrentProgress} key={item.id} />
                         ))}
                     </div>
-                    <TabAddEmployeeContentRender data={staffDetails} type={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                    <TabAddEmployeeContentRender data={staffDetails} isLoading={isLoading} type={currentProgress} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                 </div>
             </div>
         </div>

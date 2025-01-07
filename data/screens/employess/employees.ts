@@ -1,6 +1,31 @@
 import { Type_states_add_edit_employee } from "@/types/screens/employees/componentDataType";
 import { Type_employee_details_data } from "@/types/screens/employees/employeeDetails"
 
+export const state_default_staff_details = {
+    account_access: '',
+    address: '',
+    active_points: 0,
+    avatar: { url: '', key: 'string' },
+    created_at: 0,
+    updated_at: 0,
+    date_of_birth: 0,
+    department: null,
+    work_office: {
+        name: ''
+    },
+    first_name: '',
+    last_name: '',
+    joining_date: 1633030200,
+    email: '',
+    phone: '',
+    gender: 'Male',
+    job: null,
+    level: '',
+    status: '',
+    total_days_worked: '',
+    is_fulltime: false,
+    id: ''
+}
 
 export const input_default_state_add_edit_employee: Type_states_add_edit_employee = {
     address: '',

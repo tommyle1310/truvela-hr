@@ -1,4 +1,4 @@
-export type Type_candidate_status = 'APPLIED' | 'SELECTED' | 'REJECTED' | 'IN_PROGRESS';
+export type Type_candidate_status = 'Applied' | 'Selected' | 'Rejected' | 'In progress';
 
 export const arr_candidate_status = [
     { value: 'APPLIED', label: 'Applied' },

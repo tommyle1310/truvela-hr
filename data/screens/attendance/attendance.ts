@@ -26,3 +26,27 @@ export const table_attendance: { id: number, email: string, name: string, isFull
         workLocation: 'Bremare'
     },
 ];
+
+export const state_default_attendance_details = [
+    {
+        date: 1736269200,
+        staff_id: 'STF_1',
+        staff: {
+            first_name: '',
+            last_name: '',
+            email: '',
+            avatar: { url: '', key: '' },
+            phone: '',
+            id: 'STF_1',
+            department: { name: 'Therapist' }
+        },
+        clock_in: "10:00 AM",
+        check_in: "10:00 AM",
+        check_out: "10:00 AM",
+        clock_out: "10:00 AM",
+        status_clock_out: 'Late',
+        status_clock_in: 'Late',
+        created_at: 1736298603,
+        updated_at: 1736298603,
+    }
+]

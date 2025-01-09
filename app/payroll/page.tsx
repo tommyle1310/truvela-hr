@@ -34,6 +34,9 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import useFetchSalaryDefinition from '@/hooks/payroll/useFetchSalaryDefinition'
 import Spinner from '@/components/Spinner'
+import useFetchAllPayrollsByDepartment from '@/hooks/payroll/useFetchAllPayrollsByDepartment'
+import { calculateCtc, calculateSalaryPerMonth } from '@/utils/functions'
+import { Enum_PayrollStatus } from '@/types/enums'
 
 
 
@@ -41,71 +44,84 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
     type: string, currentProgress: string, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>
 }) => {
     const router = useRouter(); // Get the router instance
-    const { refetch, error, isLoading: isLoadingSalaryDefinition, listSalaryDefinitions } = useFetchSalaryDefinition()
-    console.log('cehck', listSalaryDefinitions)
+    const { refetch: refetchSalaryDefinition, error: errorSalaryDefinition, isLoading: isLoadingSalaryDefinition, listSalaryDefinitions } = useFetchSalaryDefinition()
+    const { refetch: refetchPayroll, error: errorPayroll, isLoading: isLoadingPayroll, listPayroll } = useFetchAllPayrollsByDepartment()
     switch (type) {
         case vertical_util_tab_payroll[0].title:
             return (
                 <div className="col-span-9 p-4 rounded-lg shadow-md border flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                        <SearchInput />
-                        <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
-                    </div>
-                    <div className="flex items-center">
-                        {horizontal_util_tab_payroll_by_department.map(item => (
-                            <TabHeaders key={item.id}
-                                currentProgress={currentProgress}
-                                setCurrentProgress={setCurrentProgress}
-                                icon={item.icon}
-                                id={item.id}
-                                title={item.title}
-                            />
-                        ))}
-                    </div>
-                    <h5 className="text-lg font-bold p-2 my-0">{currentProgress} Payroll</h5>
-                    <Table>
-                        <TableCaption>A list of {currentProgress} payroll.</TableCaption>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[100px]">Employee Name</TableHead>
-                                <TableHead className=''>CTC</TableHead>
-                                <TableHead className=''>Salary Per Month</TableHead>
-                                <TableHead className=''>Deduction</TableHead>
-                                <TableHead className=''>Status</TableHead>
-                                <TableHead className=''>Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {table_payroll_this_month_log.find(item => item.departmentName === currentProgress)?.tableSalaryDefinition.map((item) => (
-                                <TableRow key={item.id} className="">
-                                    <TableCell className="font-medium w-56 flex items-center gap-1">
-                                        <Avatar>
-                                            <AvatarImage src={item.avatar} />
-                                            <AvatarFallback>{item.name}</AvatarFallback>
-                                        </Avatar>
-                                        <strong>{item.name}</strong>
-                                    </TableCell>
-                                    <TableCell className=" ">${item.ctc}</TableCell>
-                                    <TableCell className=" ">${item.salaryPerMonth}</TableCell>
-                                    <TableCell className=" ">${item.deduction}</TableCell>
-                                    <TableCell className="text-center">
-                                        <div className={`px-2 py-1  font-bold ${item.status === 'COMPLETED' ? 'bg-green-100 text-green-500' : 'bg-yellow-100 text-yellow-500'} flex rounded-sm `}>
-                                            {item.status}</div></TableCell>
-                                    <TableCell className=" text-center">
-                                        <Popover>
-                                            <PopoverTrigger>
-                                                <FontAwesomeIcon icon={faEllipsis} />
-                                            </PopoverTrigger>
-                                            <PopoverContent className='flex flex-col p-0 max-w-[120px]'>
-                                                <Button variant={'ghost'} onClick={() => router.push(`/payroll/${item.id}`)}>Update payroll</Button>
-                                            </PopoverContent>
-                                        </Popover>
-                                    </TableCell>
+                    {isLoadingPayroll ?
+                        <Spinner /> :
+                        <>
+                            <div className="flex items-center justify-between">
+                                <SearchInput />
+                                <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
+                            </div>
+                            <div className="flex items-center">
+                                {horizontal_util_tab_payroll_by_department.map(item => (
+                                    <TabHeaders key={item.id}
+                                        currentProgress={currentProgress}
+                                        setCurrentProgress={setCurrentProgress}
+                                        icon={item.icon}
+                                        id={item.id}
+                                        title={item.title}
+                                    />
+                                ))}
+                            </div>
+                            <h5 className="text-lg font-bold p-2 my-0"><span className='text-violet-600'>{currentProgress}</span> Payroll</h5>
+                            <Table>
+                                <TableCaption>A list of <span className='text-violet-500'>{currentProgress}</span> payroll.</TableCaption>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead className="w-[100px]">Employee Name</TableHead>
+                                        <TableHead className=''>CTC</TableHead>
+                                        <TableHead className=''>Salary Per Month</TableHead>
+                                        <TableHead className=''>Deduction</TableHead>
+                                        <TableHead className=''>Status</TableHead>
+                                        <TableHead className=''>Actions</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {listPayroll.find(item => item.department_name === currentProgress)?.staffs_payroll.map((item) => (
+                                        <TableRow key={item.id} className="">
+                                            <TableCell className="font-medium w-56 flex items-center gap-1">
+                                                <Avatar>
+                                                    <AvatarImage src={item.id} />
+                                                    <AvatarFallback>{item.staff.avatar.url}</AvatarFallback>
+                                                </Avatar>
+                                                <strong>{item.staff.last_name} {item.staff.first_name}</strong>
+                                            </TableCell>
+                                            <TableCell className=" ">${calculateCtc(item.base_salary)}</TableCell>
+                                            <TableCell className=" ">${calculateSalaryPerMonth(item.base_salary)}</TableCell>
+                                            <TableCell className=" ">${item.other_deduction_amount + item.operation_deduction_amount}</TableCell>
+                                            <TableCell className="text-center">
+                                                <div
+                                                    className={`px-2 py-1 font-bold flex rounded-sm ${item.status === Enum_PayrollStatus.APPROVED || item.status === Enum_PayrollStatus.COMPLETED
+                                                        ? 'bg-green-100 text-green-500'
+                                                        : 'bg-yellow-100 text-yellow-500'
+                                                        }`}
+                                                >
+                                                    {item.status}
+                                                </div>
+                                            </TableCell>
 
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                                            <TableCell className=" text-center">
+                                                <Popover>
+                                                    <PopoverTrigger>
+                                                        <FontAwesomeIcon icon={faEllipsis} />
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className='flex flex-col p-0 max-w-[120px]'>
+                                                        <Button variant={'ghost'} onClick={() => router.push(`/payroll/${item.id}`)}>Update payroll</Button>
+                                                    </PopoverContent>
+                                                </Popover>
+                                            </TableCell>
+
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </>
+                    }
                 </div>
             )
         case vertical_util_tab_payroll[1].title:
@@ -129,9 +145,9 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                                     />
                                 ))}
                             </div>
-                            <h5 className="text-lg font-bold p-2 my-0">{currentProgress} Payroll</h5>
+                            <h5 className="text-lg font-bold p-2 my-0"><span className='text-violet-600'>{currentProgress}</span> Salary Definition</h5>
                             <Table>
-                                <TableCaption>A list of {currentProgress} salary definition.</TableCaption>
+                                <TableCaption>A list of <span className='text-violet-500'>{currentProgress}</span> salary definition.</TableCaption>
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead className="">Job</TableHead>
@@ -146,7 +162,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                                             <TableCell className="  flex items-center gap-1"> {item.title}</TableCell>
                                             <TableCell className=" ">{item.level}</TableCell>
                                             <TableCell className=" ">${item.base_salary}</TableCell>
-                                            <TableCell className=" ">${item.base_salary * 8 * 4 * 5 * 12}</TableCell>
+                                            <TableCell className=" ">${calculateCtc(item.base_salary)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

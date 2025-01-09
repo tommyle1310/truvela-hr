@@ -1,10 +1,10 @@
 export type Type_candidate_status = 'Applied' | 'Selected' | 'Rejected' | 'In progress';
 
 export const arr_candidate_status = [
-    { value: 'APPLIED', label: 'Applied' },
-    { value: 'SELECTED', label: 'Selected' },
-    { value: 'REJECTED', label: 'Rejected' },
-    { value: 'IN_PROGRESS', label: 'In progress' }
+    { value: 'Applied', label: 'Applied' },
+    { value: 'Selected', label: 'Selected' },
+    { value: 'Rejected', label: 'Rejected' },
+    { value: "In progress", label: 'In progress' }
 ];
 
 

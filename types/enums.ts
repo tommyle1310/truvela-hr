@@ -27,3 +27,11 @@ export enum Enum_Shift {
     AFTERNOON = "Afternoon",
     EVENING = "Evening"
 }
+
+export enum Enum_PayrollStatus {
+    PENDING = 'Pending',
+    APPROVED = "Approved",
+    PAID = "Paid",
+    COMPLETED = "Completed",
+    ON_HOLD = "On hold"
+}

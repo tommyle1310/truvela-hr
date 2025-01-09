@@ -50,7 +50,8 @@ const RenderCandidateStatus = ({ type }: { type: Type_candidate_status }) => {
 
 const page = () => {
     const { listHrCandidates, isLoading, refetch, error } = useFetchHrCandidates()
-    const [selectedCandidateStatus, setSelectedCandidateStatus] = useState<string>('ALL')
+    const [selectedCandidateStatus, setSelectedCandidateStatus] = useState<string>('All')
+    console.log('check sleec', selectedCandidateStatus)
     return (
         <div className='p-4 rounded-md shadow-md border flex flex-col'>
             {
@@ -64,7 +65,7 @@ const page = () => {
                                     <SelectValue placeholder="Filtered by Status" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {[{ label: 'All', value: 'ALL' }, ...arr_candidate_status].map((item, index) => (
+                                    {[{ label: 'All', value: 'All' }, ...arr_candidate_status].map((item, index) => (
                                         <SelectItem key={index} value={item.value}>{item.label}</SelectItem>
                                     ))}
                                 </SelectContent>
@@ -84,7 +85,7 @@ const page = () => {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {selectedCandidateStatus === 'ALL' ? (
+                                    {selectedCandidateStatus === 'All' ? (
                                         listHrCandidates.map((item) => (
                                             <TableRow key={item.id}>
                                                 <TableCell className="font-medium w-56 flex items-center gap-1">

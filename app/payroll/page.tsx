@@ -111,7 +111,7 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
                                                         <FontAwesomeIcon icon={faEllipsis} />
                                                     </PopoverTrigger>
                                                     <PopoverContent className='flex flex-col p-0 max-w-[120px]'>
-                                                        <Button variant={'ghost'} onClick={() => router.push(`/payroll/${item.id}`)}>Update payroll</Button>
+                                                        <Button variant={'ghost'} onClick={() => router.push(`/payroll/${item.staff_id}`)}>Update payroll</Button>
                                                     </PopoverContent>
                                                 </Popover>
                                             </TableCell>

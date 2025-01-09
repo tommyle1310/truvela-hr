@@ -8,7 +8,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Separator } from '@/components/ui/separator'
 import {
     Popover,
@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/table"
 import { format } from 'date-fns'
 import { HOURS_RATE } from '@/constants/payroll'
+import useFetchPayrollAdjustmentReportsByStaffId from '@/hooks/payroll/useFetchPayrollByStaffId'
 
 
 
@@ -134,6 +135,51 @@ interface TablePopoverProps {
     isRedTotalAmount?: boolean;
 }
 
+type Type_adjustment_api = {
+    amount: number;
+    createdAt: number;
+    name: string;
+    description: string;
+    staff_name: string;
+    staff_id: string;
+    payroll_adjustment_id: string;
+    note: string;
+    updated_at: number;
+};
+
+type GroupedAdjustment = {
+    id: string;
+    name: string;
+    amount: number;
+    count: number;
+};
+
+const covertResponsePraToTablePopover = (data: Type_adjustment_api[]): GroupedAdjustment[] => {
+    return Object.values(
+        data.reduce((acc, curr) => {
+            const { payroll_adjustment_id, name, amount } = curr;
+
+            if (!acc[payroll_adjustment_id]) {
+                // Initialize the group for this payroll_adjustment_id
+                acc[payroll_adjustment_id] = {
+                    id: payroll_adjustment_id,
+                    name: name,
+                    amount: 0, // Initialize to 0
+                    count: 0
+                };
+            }
+
+            // Sum the amounts for each payroll_adjustment_id
+            acc[payroll_adjustment_id].amount += amount;
+
+            // Increment the count for the specific payroll_adjustment_id
+            acc[payroll_adjustment_id].count++;
+
+            return acc;
+        }, {} as Record<string, GroupedAdjustment>) // Define the accumulator type
+    );
+};
+
 const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, amountField, isRedTotalAmount = false }) => {
     return (
         <div className="flex flex-col">
@@ -187,7 +233,19 @@ const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, a
 
 const page = () => {
     const { employeeId } = useParams()
+    const { error, isLoading, payrollAdjustmentReports, refetch } = useFetchPayrollAdjustmentReportsByStaffId(employeeId as string)
+    const [listBonuses, setListBonuses] = useState([])
 
+    useEffect(() => {
+        if (payrollAdjustmentReports.length > 0 && payrollAdjustmentReports[0].adjustments) {
+            console.log(
+                payrollAdjustmentReports.find(item => item.type === 'Bonus')
+                    ? covertResponsePraToTablePopover(payrollAdjustmentReports.find(item => item.type === 'Bonus')?.adjustments || [])  // Use empty array if adjustments is undefined
+                    : 'nasn'
+            );
+
+        }
+    }, [payrollAdjustmentReports])
 
     return (
         <div className="flex flex-col gap-8">

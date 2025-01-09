@@ -59,3 +59,18 @@ export interface Props_SalaryDefinition {
         }
     }[]
 }
+
+export interface Props_PayrollAdjustmentReport {
+    type: string,
+    adjustments: {
+        amount: number;
+        createdAt: number;
+        name: string;
+        description: string;
+        staff_name: string;
+        staff_id: string;
+        payroll_adjustment_id: string;
+        note: string;
+        updated_at: number;
+    }[]
+}

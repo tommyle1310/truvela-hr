@@ -32,6 +32,8 @@ import VerticalUtilTab from '@/components/Tabs/VerticalUtilTab'
 import DrawerPayrollDashboard from '@/components/screens/payroll/DrawerPayrollDashboard'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
+import useFetchSalaryDefinition from '@/hooks/payroll/useFetchSalaryDefinition'
+import Spinner from '@/components/Spinner'
 
 
 
@@ -39,7 +41,8 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
     type: string, currentProgress: string, setCurrentProgress: React.Dispatch<React.SetStateAction<string>>
 }) => {
     const router = useRouter(); // Get the router instance
-
+    const { refetch, error, isLoading: isLoadingSalaryDefinition, listSalaryDefinitions } = useFetchSalaryDefinition()
+    console.log('cehck', listSalaryDefinitions)
     switch (type) {
         case vertical_util_tab_payroll[0].title:
             return (
@@ -108,49 +111,48 @@ const RenderMainContentPayroll = ({ type, currentProgress, setCurrentProgress }:
         case vertical_util_tab_payroll[1].title:
             return (
                 <div className="col-span-9 p-4 rounded-lg shadow-md border flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                        <SearchInput />
-                        <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
-                    </div>
-                    <div className="flex items-center">
-                        {horizontal_util_tab_payroll_by_department.map(item => (
-                            <TabHeaders key={item.id}
-                                currentProgress={currentProgress}
-                                setCurrentProgress={setCurrentProgress}
-                                icon={item.icon}
-                                id={item.id}
-                                title={item.title}
-                            />
-                        ))}
-                    </div>
-                    <h5 className="text-lg font-bold p-2 my-0">{currentProgress} Payroll</h5>
-                    <Table>
-                        <TableCaption>A list of {currentProgress} salary definition.</TableCaption>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="">Job</TableHead>
-                                <TableHead className=''>Level</TableHead>
-                                <TableHead className=''>Base Salary</TableHead>
-                                <TableHead className=''>Bonus</TableHead>
-                                <TableHead className=''>CTC</TableHead>
-                                <TableHead className=''>Deductions</TableHead>
-                                <TableHead className=''>Total CTC</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {table_payroll_salary_definition.find(item => item.departmentName === currentProgress)?.tableSalaryDefinition.map((item) => (
-                                <TableRow key={item.id} className="">
-                                    <TableCell className="  flex items-center gap-1"> {item.job}</TableCell>
-                                    <TableCell className=" ">{item.level}</TableCell>
-                                    <TableCell className=" ">${item.baseSalary}</TableCell>
-                                    <TableCell className=" ">${item.bonus}</TableCell>
-                                    <TableCell className=" ">${item.ctc}</TableCell>
-                                    <TableCell className=" ">${item.deductions}</TableCell>
-                                    <TableCell className=" ">${item.totalCTC}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    {isLoadingSalaryDefinition ?
+                        <Spinner /> :
+                        <>
+                            <div className="flex items-center justify-between">
+                                <SearchInput />
+                                <Button className='flex items-center gap-1'><FontAwesomeIcon icon={faCircleUp} />Export</Button>
+                            </div>
+                            <div className="flex items-center">
+                                {horizontal_util_tab_payroll_by_department.map(item => (
+                                    <TabHeaders key={item.id}
+                                        currentProgress={currentProgress}
+                                        setCurrentProgress={setCurrentProgress}
+                                        icon={item.icon}
+                                        id={item.id}
+                                        title={item.title}
+                                    />
+                                ))}
+                            </div>
+                            <h5 className="text-lg font-bold p-2 my-0">{currentProgress} Payroll</h5>
+                            <Table>
+                                <TableCaption>A list of {currentProgress} salary definition.</TableCaption>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead className="">Job</TableHead>
+                                        <TableHead className=''>Level</TableHead>
+                                        <TableHead className=''>Base Salary</TableHead>
+                                        <TableHead className=''>CTC</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {listSalaryDefinitions.find(item => item.department_name === currentProgress)?.jobs_salary_definition.map((item) => (
+                                        <TableRow key={item.id} className="">
+                                            <TableCell className="  flex items-center gap-1"> {item.title}</TableCell>
+                                            <TableCell className=" ">{item.level}</TableCell>
+                                            <TableCell className=" ">${item.base_salary}</TableCell>
+                                            <TableCell className=" ">${item.base_salary * 8 * 4 * 5 * 12}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </>
+                    }
                 </div>
             )
         case vertical_util_tab_payroll[2].title:

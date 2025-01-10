@@ -1,4 +1,4 @@
-import { Enum_PayrollStatus } from "@/types/enums"
+import { Enum_PayrollAdjustmentType, Enum_PayrollStatus } from "@/types/enums"
 
 export interface Props_SalaryDefinition {
     department_name: string,
@@ -61,16 +61,14 @@ export interface Props_SalaryDefinition {
 }
 
 export interface Props_PayrollAdjustmentReport {
-    type: string,
-    adjustments: {
-        amount: number;
-        createdAt: number;
-        name: string;
-        description: string;
-        staff_name: string;
-        staff_id: string;
-        payroll_adjustment_id: string;
-        note: string;
-        updated_at: number;
+    type: Enum_PayrollAdjustmentType,
+    staff_id: string,
+    staff_email: string,
+    payroll_adjustment_reports: {
+        type: Enum_PayrollAdjustmentType,
+        name: string,
+        id: string,
+        updated_at: number,
+        amount: number
     }[]
 }

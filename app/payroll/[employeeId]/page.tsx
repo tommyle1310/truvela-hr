@@ -27,8 +27,9 @@ import {
 import { format } from 'date-fns'
 import { HOURS_RATE } from '@/constants/payroll'
 import useFetchPayrollAdjustmentReportsByStaffId from '@/hooks/payroll/useFetchPayrollByStaffId'
-
-
+import { convertDecimalToTime } from '@/utils/functions'
+import { Enum_PayrollAdjustmentType } from '@/types/enums'
+import { Props_PayrollAdjustmentReport } from '@/types/screens/payroll/payroll'
 
 export const Top_Section_Left_Employee_payroll_update_breadcrumb = () => {
     const { employeeId } = useParams()
@@ -50,142 +51,34 @@ export const Top_Section_Left_Employee_payroll_update_breadcrumb = () => {
         </div>
     )
 }
-function convertDecimalToTime(decimalHours: number) {
-    const hours = Math.floor(decimalHours);
-    const minutes = Math.round((decimalHours - hours) * 60);
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-}
+
 
 const table_overtime = [
-    {
-        id: 1,
-        date: 1733011200,
-        overtimeHours: 1.467
-    },
-    {
-        id: 2,
-        date: 1733097600,
-        overtimeHours: 1.5
-    },
-    {
-        id: 3,
-        date: 1733184000,
-        overtimeHours: 1
-    },
-]
-const table_bonuses = [
-    {
-        id: 1,
-        name: 'Weekly Best Peformer',
-        count: 3,
-        bonus: 30,
-    },
-    {
-        id: 2,
-        name: 'Holiday Bonus',
-        count: 1,
-        bonus: 60
-    },
-    {
-        id: 3,
-        name: 'Weekend Contribution',
-        count: 6,
-        bonus: 35
-    },
-]
-const table_reimbursements = [
-    {
-        id: 1,
-        name: 'Travel Expenses',
-        count: 28,
-        amount: 10,
-    }
-]
-const table_benefits = [
-    {
-        id: 1,
-        name: 'Lunch Support',
-        count: 30,
-        amount: 15,
-    }
-]
-const table_operation_deductions = [
-    {
-        id: 1,
-        name: 'Bad Feedback from Client',
-        count: 30,
-        deduction: 5,
-    }
-]
-const table_other_deductions = [
-    {
-        id: 1,
-        name: 'Uniform',
-        count: 2,
-        deduction: 30,
-    }
-]
-const table_taxes: any[] = []
+    { id: 1, date: 1733011200, overtimeHours: 1.467 },
+    { id: 2, date: 1733097600, overtimeHours: 1.5 },
+    { id: 3, date: 1733184000, overtimeHours: 1 }
+];
 
-interface TablePopoverProps {
-    title: string;
-    totalAmount: number;
-    data: Array<any>;  // Fix type for data to be an array of any type
-    amountField: string;
-    isRedTotalAmount?: boolean;
-}
-
-type Type_adjustment_api = {
-    amount: number;
-    createdAt: number;
-    name: string;
-    description: string;
-    staff_name: string;
-    staff_id: string;
-    payroll_adjustment_id: string;
-    note: string;
-    updated_at: number;
+type TablePopoverProps = {
+    amountFieldTitle: string,
+    data: {
+        id: string,
+        name: string,
+        amount: number,
+        count: number
+    }[],
+    title: string,
+    totalAmount: number,
+    isRedTotalAmount?: boolean
 };
 
-type GroupedAdjustment = {
-    id: string;
-    name: string;
-    amount: number;
-    count: number;
-};
 
-const covertResponsePraToTablePopover = (data: Type_adjustment_api[]): GroupedAdjustment[] => {
-    return Object.values(
-        data.reduce((acc, curr) => {
-            const { payroll_adjustment_id, name, amount } = curr;
-
-            if (!acc[payroll_adjustment_id]) {
-                // Initialize the group for this payroll_adjustment_id
-                acc[payroll_adjustment_id] = {
-                    id: payroll_adjustment_id,
-                    name: name,
-                    amount: 0, // Initialize to 0
-                    count: 0
-                };
-            }
-
-            // Sum the amounts for each payroll_adjustment_id
-            acc[payroll_adjustment_id].amount += amount;
-
-            // Increment the count for the specific payroll_adjustment_id
-            acc[payroll_adjustment_id].count++;
-
-            return acc;
-        }, {} as Record<string, GroupedAdjustment>) // Define the accumulator type
-    );
-};
-
-const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, amountField, isRedTotalAmount = false }) => {
+const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, amountFieldTitle, isRedTotalAmount = false }) => {
     return (
         <div className="flex flex-col">
             <div className="items-center flex gap-4">
                 <p>{title}: </p>
-                {data.length > 0 ?
+                {data.length > 0 ? (
                     <Popover>
                         <PopoverTrigger>
                             <strong className={`underline ${isRedTotalAmount ? 'text-red-600' : 'text-green-600'}`}>
@@ -198,18 +91,18 @@ const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, a
                                     <TableRow>
                                         <TableHead>Name</TableHead>
                                         <TableHead>Count</TableHead>
-                                        <TableHead>{amountField}</TableHead>
-                                        <TableHead className="text-center">Total {amountField}</TableHead>
+                                        <TableHead>{amountFieldTitle}</TableHead>
+                                        <TableHead className="text-center">Total {amountFieldTitle}</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {data.map((item) => (
+                                    {data?.map((item) => (
                                         <TableRow className="text-xs" key={item.id}>
                                             <TableCell className="font-medium">{item.name}</TableCell>
                                             <TableCell className="text-center">{item.count}</TableCell>
-                                            <TableCell>${item[amountField]}</TableCell>
+                                            <TableCell>${item.amount}</TableCell>
                                             <TableCell className={`${isRedTotalAmount ? 'text-red-600' : 'text-green-600'} text-center`}>
-                                                {isRedTotalAmount ? '-' : '+'}${(item[amountField] * item.count).toFixed(2)}
+                                                {isRedTotalAmount ? '-' : '+'}${(item['amount'] * (data ? item.count : 1)).toFixed(2)}
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -217,11 +110,11 @@ const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, a
                             </Table>
                         </PopoverContent>
                     </Popover>
-                    :
+                ) : (
                     <strong className={`${isRedTotalAmount ? 'text-red-600' : 'text-green-600'}`}>
                         ${totalAmount}
                     </strong>
-                }
+                )}
             </div>
             <Separator className="my-2" />
         </div>
@@ -230,22 +123,123 @@ const TablePopover: React.FC<TablePopoverProps> = ({ title, totalAmount, data, a
 
 
 
+function transformData(data: Props_PayrollAdjustmentReport): TablePopoverProps {
+    const groupedData: { [key: string]: { count: number; amount: number; name: string } } = {};
+
+    // Group by 'id' and accumulate count and amount
+    data.payroll_adjustment_reports.forEach(report => {
+        if (!groupedData[report.id]) {
+            groupedData[report.id] = { count: 0, amount: 0, name: report.name };
+        }
+        groupedData[report.id].count += 1;
+        groupedData[report.id].amount += report.amount;
+    });
+
+    // Prepare the final transformed data
+    const transformedData: TablePopoverProps = {
+        amountFieldTitle: data.type,
+        data: [],
+        title: data.type,
+        totalAmount: 0,
+        isRedTotalAmount: true,
+    };
+
+    // Populate 'data' and calculate totalAmount
+    for (const reportId in groupedData) {
+        const report = groupedData[reportId];
+        const totalAmountForReport = report.amount * report.count;
+        transformedData.data.push({
+            id: reportId,
+            name: report.name,
+            amount: report.amount,
+            count: report.count,
+        });
+        transformedData.totalAmount += totalAmountForReport;
+    }
+
+    return transformedData;
+}
+
+
+
 
 const page = () => {
     const { employeeId } = useParams()
-    const { error, isLoading, payrollAdjustmentReports, refetch } = useFetchPayrollAdjustmentReportsByStaffId(employeeId as string)
-    const [listBonuses, setListBonuses] = useState([])
+    const { error, isLoading, payrollAdjustmentReports, refetch } = useFetchPayrollAdjustmentReportsByStaffId(employeeId as string);
+    const [listBonuses, setListBonuses] = useState<TablePopoverProps>();
+    const [listReimbursement, setListReimbursement] = useState<TablePopoverProps>();
+    const [listBenefits, setListBenefits] = useState<TablePopoverProps>();
+    const [listOperationDeductions, setListOperationDeduction] = useState<TablePopoverProps>();
+    const [listOtherReduction, setListOtherReduction] = useState<TablePopoverProps>();
+    const [listTax, setListTax] = useState<TablePopoverProps>();
 
     useEffect(() => {
-        if (payrollAdjustmentReports.length > 0 && payrollAdjustmentReports[0].adjustments) {
-            console.log(
-                payrollAdjustmentReports.find(item => item.type === 'Bonus')
-                    ? covertResponsePraToTablePopover(payrollAdjustmentReports.find(item => item.type === 'Bonus')?.adjustments || [])  // Use empty array if adjustments is undefined
-                    : 'nasn'
-            );
-
+        if (payrollAdjustmentReports !== undefined) {
+            const bonus = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.BONUS);
+            if (bonus) {
+                setListBonuses(transformData(bonus));
+            } else {
+                console.log('Bonus report not found');
+            }
         }
-    }, [payrollAdjustmentReports])
+    }, [payrollAdjustmentReports]);
+
+    useEffect(() => {
+        if (payrollAdjustmentReports !== undefined) {
+            const reimbursementReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.REIMBURSEMENT);
+            if (reimbursementReport) {
+                setListReimbursement(transformData(reimbursementReport));
+            } else {
+                console.log('Reimbursement report not found');
+            }
+        }
+    }, [payrollAdjustmentReports]);
+
+    useEffect(() => {
+        if (payrollAdjustmentReports !== undefined) {
+            const benefitReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.BENEFIT);
+            if (benefitReport) {
+                setListBenefits(transformData(benefitReport));
+            } else {
+                console.log('Benefit report not found');
+            }
+        }
+    }, [payrollAdjustmentReports]);
+
+    useEffect(() => {
+        if (payrollAdjustmentReports !== undefined) {
+            const operationDeductionReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.OPERATION_DEDUCTION);
+            if (operationDeductionReport) {
+                setListOperationDeduction(transformData(operationDeductionReport));
+            } else {
+                console.log('Operation deduction report not found');
+            }
+        }
+    }, [payrollAdjustmentReports]);
+
+    useEffect(() => {
+        if (payrollAdjustmentReports !== undefined) {
+            const otherReductionReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.OTHER_DEDUCTION);
+            if (otherReductionReport) {
+                setListOtherReduction(transformData(otherReductionReport));
+            } else {
+                console.log('Other reduction report not found');
+            }
+        }
+    }, [payrollAdjustmentReports]);
+
+    useEffect(() => {
+        if (payrollAdjustmentReports !== undefined) {
+            const taxReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.TAX);
+            if (taxReport) {
+                setListTax(transformData(taxReport));
+            } else {
+                console.log('Tax report not found');
+            }
+        }
+    }, [payrollAdjustmentReports]);
+
+
 
     return (
         <div className="flex flex-col gap-8">
@@ -339,10 +333,8 @@ const page = () => {
                                                 ))}
                                             </TableBody>
                                         </Table>
-
                                     </PopoverContent>
                                 </Popover>
-
                             </div>
                             <Separator className='my-2' />
                         </div>
@@ -350,52 +342,47 @@ const page = () => {
                     <div className="flex-grow p-4 flex flex-col">
                         <TablePopover
                             title="Bonuses (4)"
-                            totalAmount={360}
-                            data={table_bonuses}
-                            amountField="bonus"
+                            totalAmount={listBonuses?.totalAmount ?? 0}
+                            data={listBonuses?.data ?? []}
+                            amountFieldTitle={listBonuses?.title ?? ''}
                         />
                         <TablePopover
                             title="Reimbursements (5)"
-                            totalAmount={280}
-                            data={table_reimbursements}
-                            amountField="amount"
+                            totalAmount={listReimbursement?.totalAmount ?? 0}
+                            data={listReimbursement?.data ?? []}
+                            amountFieldTitle={listReimbursement?.title ?? ''}
                         />
                         <TablePopover
                             title="Benefits (6)"
-                            totalAmount={450}
-                            data={table_benefits}
-                            amountField="amount"
+                            totalAmount={listBenefits?.totalAmount ?? 0}
+                            data={listBenefits?.data ?? []}
+                            amountFieldTitle={listBenefits?.title ?? ''}
                         />
                     </div>
                     <div className="flex-grow p-4 flex flex-col">
                         <TablePopover
-                            title="Operation Deductions (7)"
-                            totalAmount={360}
-                            data={table_operation_deductions}
-                            isRedTotalAmount
-                            amountField="deduction"
+                            title="Operational Deductions (7)"
+                            totalAmount={listOperationDeductions?.totalAmount ?? 0}
+                            data={listOperationDeductions?.data ?? []}
+                            amountFieldTitle={listOperationDeductions?.title ?? ''}
                         />
                         <TablePopover
                             title="Other Deductions (8)"
-                            totalAmount={60}
-                            data={table_other_deductions}
-                            isRedTotalAmount
-                            amountField="deduction"
+                            totalAmount={listOtherReduction?.totalAmount ?? 0}
+                            data={listOtherReduction?.data ?? []}
+                            amountFieldTitle={listOtherReduction?.title ?? ''}
                         />
                         <TablePopover
                             title="Taxes (9)"
-                            totalAmount={0}
-                            data={table_taxes}
-                            isRedTotalAmount
-                            amountField="deduction"
+                            totalAmount={listTax?.totalAmount ?? 0}
+                            data={listTax?.data ?? []}
+                            amountFieldTitle={listTax?.title ?? ''}
                         />
                     </div>
-
                 </div>
             </div>
-
         </div>
     )
 }
 
-export default page
+export default page;

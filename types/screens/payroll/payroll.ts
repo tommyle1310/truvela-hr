@@ -64,11 +64,18 @@ export interface Props_PayrollAdjustmentReport {
     type: Enum_PayrollAdjustmentType,
     staff_id: string,
     staff_email: string,
-    payroll_adjustment_reports: {
+    payroll_adjustment_reports?: {
         type: Enum_PayrollAdjustmentType,
         name: string,
         id: string,
         updated_at: number,
         amount: number
+    }[],
+    overtime_reports?: {
+        staff_id: string,
+        date: number,
+        overtime_hour: number,
+        created_at: number,
+        updated_at: number
     }[]
 }

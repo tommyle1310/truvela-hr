@@ -39,6 +39,7 @@ export enum Enum_PayrollStatus {
 export enum Enum_PayrollAdjustmentType {
     BONUS = 'Bonus',
     REIMBURSEMENT = "Reimbursement",
+    OVERTIME = "Overtime",
     OPERATION_DEDUCTION = "Operation deduction",
     OTHER_DEDUCTION = 'Other deduction',
     BENEFIT = 'Benefit',

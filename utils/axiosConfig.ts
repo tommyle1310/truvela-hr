@@ -68,7 +68,7 @@ interface ApiResponse {
 // Create an Axios instance with a predefined base URL
 const axiosInstance: AxiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000',
-    timeout: 10000,
+    timeout: 20000,
     headers: {
         'Content-Type': 'application/json',
     },

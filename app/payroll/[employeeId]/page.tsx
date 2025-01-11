@@ -127,7 +127,7 @@ function transformData(data: Props_PayrollAdjustmentReport): TablePopoverProps {
     const groupedData: { [key: string]: { count: number; amount: number; name: string } } = {};
 
     // Group by 'id' and accumulate count and amount
-    data.payroll_adjustment_reports.forEach(report => {
+    data.payroll_adjustment_reports && data.payroll_adjustment_reports.forEach(report => {
         if (!groupedData[report.id]) {
             groupedData[report.id] = { count: 0, amount: 0, name: report.name };
         }
@@ -166,6 +166,8 @@ function transformData(data: Props_PayrollAdjustmentReport): TablePopoverProps {
 const page = () => {
     const { employeeId } = useParams()
     const { error, isLoading, payrollAdjustmentReports, refetch } = useFetchPayrollAdjustmentReportsByStaffId(employeeId as string);
+    const [ovetimeReports, setOvetimeReports] = useState<{ date: number, created_at: number, updated_at: number, staff_id: string, ovetime_hour: number }[]>();
+    const [totalOvertime, setTotalOvertime] = useState<number>(0);
     const [listBonuses, setListBonuses] = useState<TablePopoverProps>();
     const [listReimbursement, setListReimbursement] = useState<TablePopoverProps>();
     const [listBenefits, setListBenefits] = useState<TablePopoverProps>();
@@ -216,7 +218,6 @@ const page = () => {
             }
         }
     }, [payrollAdjustmentReports]);
-
     useEffect(() => {
         if (payrollAdjustmentReports !== undefined) {
             const otherReductionReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.OTHER_DEDUCTION);
@@ -227,7 +228,6 @@ const page = () => {
             }
         }
     }, [payrollAdjustmentReports]);
-
     useEffect(() => {
         if (payrollAdjustmentReports !== undefined) {
             const taxReport = payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.TAX);
@@ -238,8 +238,23 @@ const page = () => {
             }
         }
     }, [payrollAdjustmentReports]);
+    useEffect(() => {
+        if (payrollAdjustmentReports !== undefined) {
+            const overtime_report = (payrollAdjustmentReports.find(item => item.type === Enum_PayrollAdjustmentType.OVERTIME)?.overtime_reports)
+            if (overtime_report) {
+                setOvetimeReports(overtime_report.map(item => ({ created_at: item.created_at, updated_at: item.updated_at, date: item.date, ovetime_hour: item.overtime_hour, staff_id: item.staff_id })))
+            } else {
+                console.log('overtime report not found');
+            }
+        }
+    }, [payrollAdjustmentReports]);
 
-
+    useEffect(() => {
+        if (ovetimeReports?.length) {
+            setTotalOvertime(ovetimeReports?.map(item => parseFloat((item.ovetime_hour * HOURS_RATE).toFixed(1))) // Calculate and convert to float
+                .reduce((total, current) => total + current, 0))
+        }
+    }, [ovetimeReports])
 
     return (
         <div className="flex flex-col gap-8">
@@ -310,7 +325,7 @@ const page = () => {
                                 <p>Overtime Earning (3): </p>
                                 <Popover>
                                     <PopoverTrigger>
-                                        <strong className='text-green-600 underline'>${198.4}</strong>
+                                        <strong className='text-green-600 underline'>${totalOvertime}</strong>
                                     </PopoverTrigger>
                                     <PopoverContent className='flex w-[30rem] flex-col text-xs'>
                                         <Table>
@@ -323,12 +338,12 @@ const page = () => {
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
-                                                {table_overtime.map(item => (
-                                                    <TableRow key={item.id}>
+                                                {ovetimeReports?.map((item, index) => (
+                                                    <TableRow key={`${index}`}>
                                                         <TableCell className="font-medium">{format(new Date(item.date * 1000), "PPP")}</TableCell>
-                                                        <TableCell className='text-center'>{convertDecimalToTime(item.overtimeHours)}</TableCell>
+                                                        <TableCell className='text-center'>{convertDecimalToTime(item.ovetime_hour)}</TableCell>
                                                         <TableCell>${HOURS_RATE}</TableCell>
-                                                        <TableCell className='text-green-600'>+${(item.overtimeHours * HOURS_RATE).toFixed(1)}</TableCell>
+                                                        <TableCell className='text-green-600'>+${(item.ovetime_hour * HOURS_RATE).toFixed(1)}</TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>

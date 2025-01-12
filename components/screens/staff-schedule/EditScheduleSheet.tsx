@@ -19,14 +19,27 @@ import {
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { format } from "date-fns"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { RequestedAvailabilityTable } from "./RequestedAvailabilityTable"
 import { arr_staff_schedule_employee_list } from "@/data/screens/staff-schedule/staff-schedule"
 import { vertical_util_tab_update_staff_schedule } from "@/data/screens/staff-schedule/componentData"
+import useFetchDepartments from "@/hooks/department/useFetchAllDepartments"
+import useFetchAllStaffShifts from "@/hooks/staff-availability/useFetchAllStaffShifts"
+import { Props_StaffShift } from "@/types/screens/staff-schedule/staff-shift"
+import Spinner from "@/components/Spinner"
 
 export function EditScheduleSheet({ date }: { date: number }) {
     const [selectedUtilTab, setSelectedUtilTab] = useState<string>('')
     const [isModalRequestAvailabilityOpen, setIsModalRequestAvailabilityOpen] = useState<boolean>(false)
+    const [listShifts, setListShifts] = useState<Props_StaffShift[]>()
+
+    const { error: errorDepartment, isLoading: isLoadingDepartment, listDepartments, refetch: refetchDepartment } = useFetchDepartments()
+    const { error: errorStaffShifts, isLoading: isLoadingStaffShifts, listStaffShifts, refetch: refetchStaffShifts } = useFetchAllStaffShifts()
+
+
+    useEffect(() => {
+        setListShifts(listStaffShifts)
+    }, [listStaffShifts, listDepartments])
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -54,17 +67,22 @@ export function EditScheduleSheet({ date }: { date: number }) {
                         ))}
                     </div>
                     <div className="w-full flex flex-col gap-4 col-span-9">
-                        {['Therapist', 'Frontdesk', 'Admin', 'Marketer'].map((item, index) => (
-                            <div key={index} className="rounded-md border shadow-md p-4 flex flex-col gap-2">
-                                <strong>{item}</strong>
-                                {['Morning', 'Afternoon', 'Evening'].map((item, index) => (
-                                    <div key={index} className="flex flex-col gap-1">
-                                        {item} (10:00 AM - 04:00 PM)
-                                        <MultiSelect data={arr_staff_schedule_employee_list.map(item => ({ label: item.name, value: item.id }))} />
+                        {isLoadingDepartment && isLoadingStaffShifts ?
+                            <Spinner /> : (
+
+                                listDepartments.map((item, index) => (
+                                    <div key={index} className="rounded-md border shadow-md p-4 flex flex-col gap-2">
+                                        <strong>{item.name}</strong>
+                                        {listShifts?.map((shift, index) => (
+                                            <div key={index} className="flex flex-col gap-1">
+                                                {shift.shift_type} ({shift.shift_start} - {shift.shift_end})
+                                                <MultiSelect data={item.staff_list.map(item => ({ label: `${item.last_name} ${item.first_name}`, value: item.id }))} />
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                        ))}
+                                ))
+                            )
+                        }
                     </div>
                 </div>
                 <SheetFooter>

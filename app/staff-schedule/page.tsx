@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { table_staff_schedule_monthly } from "@/data/screens/staff-schedule/staff-schedule";
-import { format } from "date-fns";
+import { format, setMinutes } from "date-fns";
 import {
     Select,
     SelectContent,
@@ -27,9 +27,7 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { EditScheduleSheet } from "@/components/screens/staff-schedule/EditScheduleSheet";
-import { Type_Departments } from "@/types/enums";
 import useFetchMonthlyStaffScheduleGroupDate from "@/hooks/staff-availability/useFetchMonthlyStaffScheduleGroupDate";
-// import { Props_MonthlyStaffSchedule_GroupStaff } from "@/types/screens/staff-schedule/staff-schedule";
 import useFetchAllStaffShifts from "@/hooks/staff-availability/useFetchAllStaffShifts";
 import { Props_MonthlyStaffSchedule } from "@/types/screens/staff-schedule/staff-schedule";
 import Spinner from "@/components/Spinner";
@@ -257,6 +255,7 @@ const Page = () => {
     }, [monthlyStaffSchedule]);
 
 
+
     return (
         <div className="flex flex-col p-4 rounded-md shadow-md border">
             <div className="flex items-center justify-between">
@@ -320,7 +319,7 @@ const Page = () => {
                                 {/* Render the edit schedule cell */}
                                 <TableCell>
                                     <div className="flex gap-1 flex-col">
-                                        <EditScheduleSheet date={new Date(item.date).getTime()} />
+                                        <EditScheduleSheet date={listDailyStaffSchedule?.[0]?.date ? Math.floor(Date.UTC(new Date(listDailyStaffSchedule[0].date).getFullYear(), new Date(listDailyStaffSchedule[0].date).getMonth(), new Date(listDailyStaffSchedule[0].date).getDate()) / 1000) : 0} />
                                     </div>
                                 </TableCell>
                             </TableRow>

@@ -1,4 +1,3 @@
-export type Type_Departments = 'ADMIN' | 'FRONTDESK' | 'THERAPIST' | 'MARKETING'
 export enum Enum_Department {
     ADMIN = "ADMIN",
     FRONTDESK = "FRONTDESK",

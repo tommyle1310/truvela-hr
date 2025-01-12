@@ -45,3 +45,9 @@ export enum Enum_PayrollAdjustmentType {
     BENEFIT = 'Benefit',
     TAX = 'Tax'
 }
+
+export enum Enum_DailyStaffAvailabilityStatus {
+    OFF = 'Off',
+    OCCUPIED = 'Occupied',
+    ASSIGNED = 'Assigned'
+}

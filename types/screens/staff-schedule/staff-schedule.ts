@@ -1,4 +1,4 @@
-import { Enum_ApprovalStatus, Enum_Department, Enum_Level, Enum_Shift, Type_Departments } from "@/types/enums";
+import { Enum_ApprovalStatus, Enum_DailyStaffAvailabilityStatus, Enum_Department, Enum_Level, Enum_Shift, Type_Departments } from "@/types/enums";
 
 export interface Type_employee_shift_request {
     avatar: string;          // URL or path to the employee's avatar image
@@ -35,6 +35,17 @@ export interface Type_staff_schedule_daily {
         department: Type_Departments
     }[],
 }
+// export interface Type_staff_schedule_daily {
+//     date: string,
+//     shifts: {
+//         shift_id: string, staffs: {
+//             id: number,
+//             name: string,
+//             avatar: { key: string, url: string },
+//             department: Type_Departments
+//         }[]
+//     }[]
+// }
 
 export type Type_staff_schedule_employee_list = {
     id: string;            // Unique employee ID
@@ -44,3 +55,27 @@ export type Type_staff_schedule_employee_list = {
     job: string;           // Job role
     avatar: string;        // URL for employee's avatar image
 }[]
+
+export interface Props_MonthlyStaffSchedule {
+    created_at: number
+    updated_at: number
+    date: string
+    month: string
+    note: string
+    staffs: {
+        attended_hours: number
+        avatar: { key: string, url: string }
+        blocked_time: { from: number, to: number }
+        created_at: number
+        updated_at: number
+        shift_name: string
+        staff_id: string
+        status: Enum_DailyStaffAvailabilityStatus
+        id: string
+        department: { id: string, name: string }
+        shift: string
+        first_name: string
+        last_name: string
+        email: string
+    }[]
+}

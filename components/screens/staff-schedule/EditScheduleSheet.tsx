@@ -48,7 +48,7 @@ export function EditScheduleSheet({ date }: { date: number }) {
                 <div className="grid grid-cols-12 gap-4 my-4">
                     <div className="col-span-3 flex flex-col gap-2">
                         {vertical_util_tab_update_staff_schedule.map(item => (
-                            <Button onClick={() => {
+                            <Button key={item.id} onClick={() => {
                                 item.onClick && item.onClick(() => setIsModalRequestAvailabilityOpen(!isModalRequestAvailabilityOpen))
                             }} className="border-indigo-400 hover:bg-indigo-100" variant={'outline'}>{item.title}</Button>
                         ))}

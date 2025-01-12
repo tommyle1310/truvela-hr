@@ -304,8 +304,8 @@ const page = () => {
             </div>
             <div className="flex flex-col rounded-md shadow-md border">
                 <strong className='px-4 mt-4'>Payroll Details</strong>
-                <div className=' overflow-hidden flex w-full'>
-                    <div className="flex-grow p-4 flex flex-col">
+                <div className=' overflow-hidden grid grid-cols-12 p-4 text-sm w-full'>
+                    <div className="flex-grow p-4 col-span-3  flex flex-col">
                         <div className="flex flex-col">
                             <div className="items-center flex gap-4">
                                 <p>Hourly Rate (1): </p>
@@ -354,7 +354,7 @@ const page = () => {
                             <Separator className='my-2' />
                         </div>
                     </div>
-                    <div className="flex-grow p-4 flex flex-col">
+                    <div className="flex-grow p-4 col-span-3  flex flex-col">
                         <TablePopover
                             title="Bonuses (4)"
                             totalAmount={listBonuses?.totalAmount ?? 0}
@@ -374,7 +374,7 @@ const page = () => {
                             amountFieldTitle={listBenefits?.title ?? ''}
                         />
                     </div>
-                    <div className="flex-grow p-4 flex flex-col">
+                    <div className="flex-grow p-4  col-span-3 flex flex-col">
                         <TablePopover
                             title="Operational Deductions (7)"
                             totalAmount={listOperationDeductions?.totalAmount ?? 0}
@@ -393,6 +393,25 @@ const page = () => {
                             data={listTax?.data ?? []}
                             amountFieldTitle={listTax?.title ?? ''}
                         />
+                    </div>
+                    <div className="col-span-3 flex flex-col gap-4 border-l pl-4 border-gray-300">
+                        <p className='flex flex-col'>
+                            Payroll calculation:
+                            <span className='text-xs'>(1) + (2) + (3) + (4) + (5) + (6) - (7) - (8) - (9)</span>
+                        </p>
+                        <p className='flex flex-col'>Gross to Net:
+                            <span className='text-green-600 font-bold'>
+                                {
+                                    (totalOvertime || 0) +
+                                    (listBenefits?.totalAmount || 0) +
+                                    (listBonuses?.totalAmount || 0) +
+                                    (listReimbursement?.totalAmount || 0) -
+                                    (listTax?.totalAmount || 0) -
+                                    (listOperationDeductions?.totalAmount || 0) -
+                                    (listOtherReduction?.totalAmount || 0)
+                                }
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
